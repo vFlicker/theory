@@ -1,0 +1,7 @@
+let iterable = [3, 5, 7];
+iterable.foo = 'hello';
+
+for (const i in iterable) Ч перебирает свойства и унаследованные свойства. 
+ѕоэтому перебира€ массив iterable, выведет 1, 2, 3, foo.
+
+for (const i of iterable) Ч перебирает не свойства объекта, а значени€ массива.

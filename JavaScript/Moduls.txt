@@ -1,0 +1,11 @@
+Eсть два способа импорта модулей.
+
+// Импорт нескольких избранных элементов
+import { sum, multiply } from './utils.js';
+console.log(sum(3, 7));
+console.log(multiply(3, 7));
+
+// импорт всего, что экспортирует модуль
+import * as utils from './utils.js';
+console.log(utils.sum(3, 7));
+console.log(utils.multiply(3, 7));

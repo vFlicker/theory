@@ -1,0 +1,38 @@
+√еттеры и сеттеры Ц по своей сути это функции, которые используютс€ дл€ присвоени€ и
+получени€ значени€, но во внешнем коде они выгл€д€т как обычные свойства объектка.
+
+get Ц срабатывает при чтении obj.propName.
+set Ц срабатывает при записи obj.propName = value.
+
+const user = {
+  name: "John",
+  surname: "Smith",
+
+  get fullName() {
+    return `${this.name} ${this.surname}`;
+  },
+
+  set fullName(value) {
+    [this.name, this.surname] = value.split(" ");
+  }
+};
+
+alert(user.fullName); // John Smith
+
+user.fullName = "Alice Cooper";
+alert(user.name); // Alice
+alert(user.surname); // Cooper
+
+
+ƒескрипторы свойств-аксессоров отличаютс€ от Ђобычныхї свойств-данных.
+—войства-аксессоры не имеют value и writable, но взамен предлагают функции get и set.
+“о есть, дескриптор аксессора может иметь:
+  - get Ц функци€ без аргументов, котора€ сработает при чтении свойства,
+  - set Ц функци€, принимающа€ один аргумент, вызываема€ при присвоении свойства,
+  - enumerable Ц то же самое, что и дл€ свойств-данных,
+  - configurable Ц то же самое, что и дл€ свойств-данных.
+
+https://learn.javascript.ru/property-accessors
+
+
+

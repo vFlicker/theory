@@ -1,0 +1,39 @@
+–азбор документа Ц задача сложна€. ¬ цел€х быстродействи€ браузерные движки не перестраивают 
+документ каждый раз после его изменени€, а ждут так долго. как это возможно.  огда программа 
+JavaScript, изменивша€ документ, заканчивает работу, браузеру надо будет просчитать новую 
+раскладку страницы, чтобы вывести изменЄнный документ на экран.  огда программа запрашивает 
+позицию или размер чего-либо, чита€ свойства типа offsetHeight или вызыва€ 
+getBoundingClientRect, дл€ предоставлени€ корректной информации тоже необходимо рассчитывать 
+раскладку.
+
+ѕрограмма, котора€ периодически считывает раскладку DOM и измен€ет DOM, заставл€ет браузер много 
+раз пересчитывать раскладку, и в св€зи с этим будет работать медленно. ¬ следующем примере есть 
+две разные программы, которые стро€т линию из символов X шириной в 2000 пикс, и измер€ют врем€ 
+работы.
+
+<p><span id="one"></span></p>
+<p><span id="two"></span></p>
+
+<script>
+  function time(name, action) {
+    var start = Date.now(); // “екущее врем€ в миллисекундах
+    action();
+    console.log(name, "зан€ло", Date.now() - start, "ms");
+  }
+
+  time("тупо", function() {
+    var target = document.getElementById("one");
+    while (target.offsetWidth < 2000)
+      target.appendChild(document.createTextNode("X"));
+  });
+  // -> тупо зан€ло 32 ms
+
+  time("умно", function() {
+    var target = document.getElementById("two");
+    target.appendChild(document.createTextNode("XXXXX"));
+    var total = Math.ceil(2000 / (target.offsetWidth / 5));
+    for (var i = 5; i < total; i++)
+      target.appendChild(document.createTextNode("X"));
+  });
+  // -> умно зан€ло 1 ms
+</script>

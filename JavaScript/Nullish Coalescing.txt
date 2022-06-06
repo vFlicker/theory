@@ -1,0 +1,21 @@
+ Nullish Coalescing (оператор нулевого слияния) — это логический оператор,
+который возвращает значение правого операнда когда значение левого операнда
+равно null или undefined, в противном случае будет возвращено значение
+левого операнда.
+
+null ?? 'default string'; // "default string"
+0 ?? 42; // 0
+
+
+ Отличия от оператора логическое ИЛИ:
+'' || 'Hello world'; // 'Hello world'
+null || 'Hello world'; // 'Hello world'
+
+'' ?? 'Hello world'; // ''
+
+
+ О бъединение с И или ИЛИ операторами:
+null || undefined ?? "foo"; // SyntaxError
+true || undefined ?? "foo"; // SyntaxError
+
+(null || undefined) ?? "foo"; // returns "foo"
