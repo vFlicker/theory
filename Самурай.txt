@@ -1,0 +1,171 @@
+﻿javascript:document.getElementsByClassName("video-stream html5-main-video")[0].playbackRate = 2.2
+
+
+SPA — перевага в тому, що сервер виступає як API, він не повертає постійно HTML,
+він повертає JSON, тому цей сервер можна використовувати як для сайту,
+так і дня програми на телефоні. 
+
+
+Компонента — це ф-ция яка приймає об'єкт props і повертає JSX, она же тег.
+props потрібні для того, щоб компонент міг відмалювати дані.
+
+
+<Link /> може знаходитися тільки у середині <HistoryRouter /> 
+<NavLink to='/' activeClassName={S.activeLink} />
+ 
+
+Коли вивчаєш новий проект, можна робити блок схему по компонентах.
+Круто намалювати це на схемі, бо все тримати в мозку тяжко.
+ index
+ -- app
+ ---- router
+ ------ page 1
+
+
+Дані в React приходять не з Серверу, а з деякої прослойки BLL (business logic layer).
+
+
+Не можна звертатися к DOM напряму, тому що з DOM, працює React.
+До того ж, ми не можемо бути впевнені, шо коли ми звернемося до 
+document.querySelector.. VirtualDOM вже відмалює потрібний нам DOM-елемент,
+тому ми повинні використовувати ref у такому випадку.
+
+
+Компонент повинен отримувати тільки ті данні, які йому потрібні.
+Не треба передавати в props state.cities, якщо вони йому не треба.
+
+
+Action — це об'єкт який має обов'язкове property type.
+
+Reducer — це чиста ф-ция яка приймає state та action, якщо потрібно
+примінює цей action к state, та повертає новий state, або просто повертає
+старий state без змін якщо action не підійшов.
+
+
+Container Component задовольняє Presentation Component,
+Container Component повинна інкапсулювати взаємодію зі Store,
+наприклад dispatch, actionCreators, effects,
+тоді Presentation Component буде отримувати тільки props.
+
+
+const initialState = {
+  followingInProgress: [],
+}
+case TOGGLE_IS_FOLLOWING_PROGRESS:
+  return {
+    ...state,
+    followingInProgress: action.isFetching
+      ? [...state.followingInProgress, action.userId]
+      : state.followingInProgress.filter((id) => id !== action.userId);
+  }
+<button disabled={props.followingInProgress.some((id) => id !== userId)} />
+
+
+const array = [1, 2, 3];
+const isWeHaveElementsInArray = !!array.length;
+Boolean(array.length) === !!array.length;
+
+const el = document.querySelector('.my-class');
+if (!!ell) { do something }
+
+ 
+Thunk — це ф-ція, яка робить якусь асинхронну задачу, та вміє діспатчити action.
+
+
+Починати писати новий компонент з бізнес логіки.
+
+
+Server API:
+ 1. URL: 'site.com/users'
+ 2. htt-request type: get/post/put
+ 3. request payload
+ 4. response data
+ 5. http codes: 200, 404
+
+  GET - POST
+  'site.com/users/get' - get
+  'site.com/users/post' - post
+  'site.com/users/update' - post
+  'site.com/users/delete' - post
+
+Server REST API:
+  'site.com/users'
+  GET - POST - PUT - DELETE (CRUD)
+
+
+Axios:
+ withCredentials: true — означає, що якщо ми авторизовані на сервері
+ на яким ми робимо запит з нашої соц.сеті, тобто ми вже маємо куку з
+ серверу, на який робимо запит, тоді 
+
+
+getParameter/queryString:
+ 'site.com/users?page=2&count=10';
+
+
+MapStateToProps, MapDispatchToProps — спрацьовують на кожен render,
+але компонент не перемальовується, якщо у нас MapStateToProps
+повернув об'єкт з тим самими значеннями state.
+
+const MapStateToProps = (state) => ({ // rerender не буде
+  users: state.usersPage.users, // usersPage має те саме посилання
+  pageSize: state.usersPage.pageSize, // usersPage має те саме посилання
+})
+
+
+ class Foo extends Component {
+  constrictor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    console.log('I know I'm inside the DOM);
+  }
+
+  componentDidUpdate() {
+    console.log();
+  }
+
+  componentWillUnmount() {
+    console.log();
+  }
+}
+
+
+function User(props) {
+  return (
+    <div>
+      <h1>{props.title}</h1>
+    </div>
+  );
+}
+function UserContainer(props) {
+  return (
+    <User foo="bar" />
+  );
+}
+const HOC = (Component) => {
+  function WrappedComponent(props) {
+    return (
+      <Component foo="bar" />
+    );
+  }
+
+  return UserContainer;
+}
+
+
+export const usersAPI = {
+  getProfile(userId) {
+    console.warn('Obsolete method. Please profileAPI object.')
+    return profileAPI.getProfile(userId);
+  }
+}
+export const profileAPI = {
+  getProfile(userId) {
+    return instance.get(`profile/` + userId);
+  },
+}
+
+
+
