@@ -1,14 +1,29 @@
-﻿javascript:document.getElementsByClassName("video-stream html5-main-video")[0].playbackRate = 2.2
+﻿Чиста ф-ція (components, reducers, selectors):
+ - no side effects (immutable, no api requests)
+ - idempotency
 
 
 SPA — перевага в тому, що сервер виступає як API, він не повертає постійно HTML,
 він повертає JSON, тому цей сервер можна використовувати як для сайту,
 так і дня програми на телефоні. 
 
-
 Компонента — це ф-ция яка приймає об'єкт props і повертає JSX, она же тег.
 props потрібні для того, щоб компонент міг відмалювати дані.
 
+Action — це об'єкт який має обов'язкове property type.
+
+Reducer — це чиста ф-ция яка приймає state та action, якщо потрібно
+примінює цей action к state, та повертає новий state, або просто повертає
+старий state без змін якщо action не підійшов.
+
+Thunk — це ф-ція, яка робить якусь асинхронну задачу, та вміє діспатчити action.
+
+Container Component задовольняє Presentation Component,
+Container Component повинна інкапсулювати взаємодію зі Store,
+наприклад dispatch, actionCreators, effects,
+тоді Presentation Component буде отримувати тільки props.
+
+Provider — додає store у context
 
 <Link /> може знаходитися тільки у середині <HistoryRouter /> 
 <NavLink to='/' activeClassName={S.activeLink} />
@@ -16,10 +31,10 @@ props потрібні для того, щоб компонент міг від�
 
 Коли вивчаєш новий проект, можна робити блок схему по компонентах.
 Круто намалювати це на схемі, бо все тримати в мозку тяжко.
- index
- -- app
- ---- router
- ------ page 1
+| index
+ --|  app
+ ----| router
+ ------|  page 1
 
 
 Дані в React приходять не з Серверу, а з деякої прослойки BLL (business logic layer).
@@ -33,19 +48,6 @@ document.querySelector.. VirtualDOM вже відмалює потрібний �
 
 Компонент повинен отримувати тільки ті данні, які йому потрібні.
 Не треба передавати в props state.cities, якщо вони йому не треба.
-
-
-Action — це об'єкт який має обов'язкове property type.
-
-Reducer — це чиста ф-ция яка приймає state та action, якщо потрібно
-примінює цей action к state, та повертає новий state, або просто повертає
-старий state без змін якщо action не підійшов.
-
-
-Container Component задовольняє Presentation Component,
-Container Component повинна інкапсулювати взаємодію зі Store,
-наприклад dispatch, actionCreators, effects,
-тоді Presentation Component буде отримувати тільки props.
 
 
 const initialState = {
@@ -68,16 +70,10 @@ Boolean(array.length) === !!array.length;
 const el = document.querySelector('.my-class');
 if (!!ell) { do something }
 
- 
-Thunk — це ф-ція, яка робить якусь асинхронну задачу, та вміє діспатчити action.
-
-
-Починати писати новий компонент з бізнес логіки.
-
 
 Server API:
  1. URL: 'site.com/users'
- 2. htt-request type: get/post/put
+ 2. http-request type: get/post/put
  3. request payload
  4. response data
  5. http codes: 200, 404
@@ -95,7 +91,7 @@ Server REST API:
 
 Axios:
  withCredentials: true — означає, що якщо ми авторизовані на сервері
- на яким ми робимо запит з нашої соц.сеті, тобто ми вже маємо куку з
+ на який ми робимо запит з нашої соц.сеті, тобто ми вже маємо cookie з
  серверу, на який робимо запит, тоді 
 
 
@@ -166,6 +162,256 @@ export const profileAPI = {
     return instance.get(`profile/` + userId);
   },
 }
+
+const initialState = { initialized: false };
+export const initializedSuccess = () => ({ type: INITIALIZED_SUCCESS });
+export const initializeApp = () => (dispatch) => {
+    const authUserDataPromise = dispatch(getAuthUserData());
+    const somethingElsePromise = dispatch(somethingElse());
+
+    Promise.all([promise, somethingElsePromise])
+      .then(() => { dispatch(initializedSuccess()) });
+}
+
+
+class Foo extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if ((nextProps === this.props) || (nextState === this.state)) {
+      return false;
+    }
+  }
+}
+class Foo extends PureComponent { }
+
+function MyComponent(props) { }
+export default React.memo(MyComponent, areEqual);
+
+
+В тестах перевірив різне відображення компонента в залежності від
+props. Перевірив що callback викликається. Зміну компонента при дабл кліку.
+
+
+function Paginator({
+  totalItemsCount,
+  pageSize,
+  currentPage,
+  onPageChanged,
+  portionSize = 10,
+}) {
+  const [portionNumber, setPortionNumber] = useState(1);
+
+  const pagesCount = Math.ceil(totalItemsCount / pageSize);
+  const portionCount = Math.ceil(pagesCount / portionSize);
+  const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
+  const rightPortionPageNumber = portionNumber * portionSize;
+  const buttonNumbers = new Array(pagesCount).fill(null).map((_, index) => index + 1);
+
+  return (
+    <div className={styles.paginator}>
+      {portionNumber > 1 && (
+        <button onClick={() => setPortionNumber(portionNumber - 1)}>PREV</button>
+      )}
+
+      {buttonNumbers
+        .filter((buttonNumber) => (
+            buttonNumber >= leftPortionPageNumber
+            && buttonNumber <= rightPortionPageNumber
+        ))
+        .map((buttonNumber) => (
+            <span
+              className={cn({[styles.selectedPage]: currentPage === buttonNumber}, styles.pageNumber)}
+              key={buttonNumber}
+              onClick={() => onPageChanged(buttonNumber)}
+            >
+              {buttonNumber}
+            </span>
+          ))}
+      {portionCount > portionNumber && (
+        <button onClick={() => setPortionNumber(portionNumber + 1)}>NEXT </button>
+      )}
+    </div>
+  );
+};
+
+
+import { MainPage } from '../pages';
+
+const LoginPage = React.lazy(() => import('../pages'));
+
+export function App(): JSX.Element {
+  return (
+    <HistoryRouter history={browserHistory}>
+      <Routes>
+        <Route path={AppRoute.ROOT} element={<MainPage />} />
+        <Route
+          path={AppRoute.LOGIN}
+          element={(
+            <React.Suspense fallback={<Spinner />} >
+              <LoginPage {...props} />
+            </React.Suspense>
+          )}
+        />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </HistoryRouter>
+  );
+}
+
+const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/EcommerceInvoice')));
+const Loadable = (Component) => (props) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { pathname } = useLocation();
+  const isDashboard = pathname.includes('/dashboard');
+
+  return (
+    <Suspense
+      fallback={
+        <LoadingScreen
+          sx={{
+            ...(!isDashboard && {
+              top: 0,
+              left: 0,
+              width: 1,
+              zIndex: 9999,
+              position: 'fixed'
+            })
+          }}
+        />
+      }
+    >
+      <Component {...props} />
+    </Suspense>
+  );
+};
+
+
+savePhoto(photoFile) {
+  const formData = new FormData();
+  formData.append("image", photoFile);
+
+  return instance.put(`profile/photo`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
+}
+
+
+<div>
+  <b>Contacts</b>:{" "}
+  {Object.keys(profile.contacts).map((title) => (
+    <div key={title} className={s.contact}>
+      <b>
+        {key}: {createField(title, `contacts-${title}`, [], Input)}
+      </b>
+    </div>
+  ))}
+</div>;
+
+
+// Так робити погано. Санку треба задиспатчити і забути, а ми очікуємо
+// поки проміс прозризольвиться.
+// Рішення: додати у БЛ поле profileUpdateStatus: 'none', | 'success', | 'error'.
+const onSubmit = (formData) => {
+  saveProfile(formData)
+    .then(() => setEditMode(false));
+};
+
+export const saveProfile = (profile) => async (dispatch, getState) => {
+  const userId = getState().auth.userId;
+  const response = await profileAPI.saveProfile(profile);
+
+  if (response.data.resultCode === 0) {
+      dispatch(getUserProfile(userId));
+      dispatch(setProfileUpdateStatus('success'));
+  } else {
+      dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0] }));
+      dispatch(setProfileUpdateStatus('error'));
+      return Promise.reject(response.data.messages[0]);
+  }
+}
+const onSubmit = (formData) => saveProfile(formData);
+if (profileUpdateStatus === 'success') setEditMode(false);
+
+
+CAPTURE
+Диспачимо санку login, у ній відбувається запит API,
+якщо статус код буде 10, тоді ми повинні ввести, капчу.
+Диспачимо санку getCaptchaUrl, яка додасть у стейт url картинки
+з капчею.
+У UI вводимо код з картинки, знову диспачимо санку login,
+на сервер прийде капча, статус код повернеться 0,
+диспачимо санку getAuthUserData, яка зробить запит на API,
+щоб отримати дані о користувачі, якщо все ок, диспачимо
+action creator setAuthUserData(id, email, login, true)
+
+site.com/api/security/capture - get
+{ data: url_to_caprute }
+
+// --- api ---
+const login = (email, password, rememberMe = false, captcha = null) => {
+  return instance.post(`auth/login`, { email, password, rememberMe, captcha })
+};
+const getCaptchaUrl = () => {
+  return instance.get(`security/get-captcha-url`);
+}
+// --- redux ---
+const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
+const initialState = { captchaUrl: null };
+const authReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_CAPTCHA_URL_SUCCESS:
+      return {
+        ...state,
+        ...action.payload
+      }
+    default:
+      return state;
+  }
+}
+export const getCaptchaUrlSuccess = (captchaUrl) => ({
+  type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}
+});
+export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
+  const response = await authAPI.login(email, password, rememberMe, captcha);
+  if (response.data.resultCode === 0) {
+    dispatch(getAuthUserData())
+  } else if (response.data.resultCode === 10) {
+    dispatch(getCaptchaUrl());
+  } else {
+    let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+    dispatch(stopSubmit("login", {_error: message}));
+  }
+}
+export const getCaptchaUrl = () => async (dispatch) => {
+  const response = await securityAPI.getCaptchaUrl();
+  const captchaUrl = response.data.url;
+  dispatch(getCaptchaUrlSuccess(captchaUrl));
+}
+
+// --- JSX ---
+function Login({ login }) {
+  const captchaUrl = useSelector();
+
+  const handleSubmit = () => {
+     login(formData.email, formData.password, formData.rememberMe, formData.captcha);
+  }
+
+  return (
+    <div>
+      { captchaUrl && <img src={captchaUrl} />}
+    </div>
+  )
+}
+
+
+const unhandledrejectionHandler = (reason, promise) => {
+  alert("Some error occurred");
+  console.error(promiseRejectionEvent);
+}
+
+useEffect(() => {
+   window.addEventListener("unhandledrejection", unhandledrejectionHandler;
+   return () => window.removeEventListener("unhandledrejection", unhandledrejectionHandler);
+}, [])
 
 
 
