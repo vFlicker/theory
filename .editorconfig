@@ -1,0 +1,9 @@
+# For more information about the properties used in
+# this file, please see the EditorConfig documentation:
+# https://editorconfig.org/
+
+root = true
+
+[*.md]
+tab_width = 4
+trim_trailing_whitespace = false
