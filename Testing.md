@@ -46,3 +46,31 @@ Behavior-driven development (BDD) — набір практик та підхо�
 3. Написати код, який вирішуватиме поставлене завдання так, щоб тести почали проходити. Код не повинен бути ідеальним, він просто повинен виконувати поставлене завдання
 4. Запустити тести — перевірити, чи проходять тести тепер
 5. Оптимізувати код — після вирішення завдання, можна покращити
+
+### Бібліотека supertest
+
+```js
+const request = require(`supertest`);
+const express = require(`express`);
+const assert = require(`assert`);
+const app = express();
+
+app.get(`/users`, function (req, res) {
+    res.status(200).send([{ name: `tobi` }]);
+});
+
+describe(`GET /users`, function () {
+    it(`respond with json`, function () {
+        return request(app)
+            .get(`/users`)
+            .set(`Accept`, `application/json`)
+            .expect(200)
+            .expect(`Content-Type`, /json/)
+            .then((response) => {
+                const users = response.body;
+                assert(users.length, 1);
+                assert(users[0].name, `tobi`);
+            });
+    });
+});
+```
