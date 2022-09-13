@@ -1,1 +1,30 @@
-�������-������� �� ����� ������ this, ������� � ��� this ������ ������������.
+Функція-стрілка не має свого `this`, тому в ній `this` завжди батьківський
+
+Не можна використовувати завжди ф-уії стрілки, тому що на кожен екземпляр класу буде створюватися нова функція
+
+```js
+class MyClass {
+  constructor() {
+    this.initialize();
+  }
+
+  suppressClick = () => {
+    console.log("suppressClick");
+  };
+
+  clickSuppressed = () => {
+    console.log("clickSuppressed");
+  };
+
+  initialize = () => {
+    console.log("initialize");
+  };
+}
+
+const cs1 = new MyClass();
+const cs2 = new MyClass();
+
+console.log(cs1.suppressClick === cs2.suppressClick); // false
+console.log(cs1.clickSuppressed === cs2.clickSuppressed); // false
+console.log(cs1.initialize === cs2.initialize); // false
+```
