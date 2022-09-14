@@ -31,4 +31,6 @@
 
 ### Корисні команди
 
+-   npx @nestjs/cli new project_name — новий проект
 -   npx @nestjs/cli g resource users — створити директорію з файлами
+-   npx @nestjs/cli generate service/controller/service users — створити директорію з файлами
