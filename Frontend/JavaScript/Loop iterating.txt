@@ -1,7 +1,0 @@
-let iterable = [3, 5, 7];
-iterable.foo = 'hello';
-
-for (const i in iterable) — перебирает свойства и унаследованные свойства. 
-Поэтому перебирая массив iterable, выведет 1, 2, 3, foo.
-
-for (const i of iterable) — перебирает не свойства объекта, а значения массива.
