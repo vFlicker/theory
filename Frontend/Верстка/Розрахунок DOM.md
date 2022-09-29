@@ -15,13 +15,13 @@
 <p><span id="two"></span></p>
 
 <script>
-    function time(name, action) {
-        const start = Date.now(); // Поточний час в мілісекундах
+    const time = (name, action) => {
+        const start = Date.now();
         action();
         console.log(`${name} зайняло ${Date.now() - start} ms`);
-    }
+    };
 
-    time("bad", function () {
+    time("bad", () => {
         const target = document.getElementById("one");
 
         while (target.offsetWidth < 2000) {
@@ -29,7 +29,7 @@
         }
     }); // -> зайняло 32 ms
 
-    time("good", function () {
+    time("good", () => {
         const target = document.getElementById("two");
         target.appendChild(document.createTextNode("XXXXX"));
 
