@@ -86,8 +86,9 @@ class AuthenticationDialog implements Mediator {
 
     constructor(textbox: Textbox, button: Button) {
         this.textbox = textbox;
-        this.textbox.setMediator(this);
         this.button = button;
+
+        this.textbox.setMediator(this);
         this.button.setMediator(this);
     }
 
