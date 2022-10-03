@@ -51,7 +51,7 @@ for (const person of persons) {
 }
 ```
 
-**Приклад 1 (TypeScript)**
+**Приклад 2 (TypeScript)**
 
 ```ts
 /**

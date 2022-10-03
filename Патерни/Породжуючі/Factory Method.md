@@ -2,59 +2,29 @@
 
 Визначає загальний інтерфейс для створення об'єктів у суперкласі, дозволяючи підкласам змінювати тип створюваних об'єктів
 
-**Приклад 1 (JavaScript)**
+**Приклад 1 (TypeScript)**
 
-```js
-class Factory {
-    #employee = null;
+```ts
+abstract class Department {
+    public abstract createEmployee($id);
 
-    createEmployee(type) {
-        if (type === "fulltime") {
-            this.#employee = new FullTime();
-        } else if (type === "parttime") {
-            this.#employee = new PartTime();
-        } else if (type === "temporary") {
-            this.#employee = new Temporary();
-        } else if (type === "contractor") {
-            this.#employee = new Contractor();
-        }
-
-        this.#employee.type = type;
-
-        this.#employee.say = function () {
-            console.log(`${this.type}: rate ${this.hourly} hour`);
-        };
-
-        return this.#employee;
+    public fire(id) {
+        const employee = this.createEmployee(id);
+        employee.paySalary();
+        employee.dismiss();
     }
 }
 
-class FullTime {
-    hourly = "$12";
+class ITDepartment extends Department {
+    public createEmployee(id) {
+        return new Programmer(id);
+    }
 }
 
-class PartTime {
-    hourly = "$11";
-}
-
-class Temporary {
-    hourly = "$10";
-}
-
-class Contractor {
-    hourly = "$15";
-}
-
-const employees = [];
-const factory = new Factory();
-
-employees.push(factory.createEmployee("fulltime"));
-employees.push(factory.createEmployee("parttime"));
-employees.push(factory.createEmployee("temporary"));
-employees.push(factory.createEmployee("contractor"));
-
-for (const employee of employees) {
-    employee.say();
+class AccountingDepartment extends Department {
+    public createEmployee(id) {
+        return new Accountant(id);
+    }
 }
 ```
 
