@@ -2,7 +2,33 @@
 
 Гарантує, що клас має лише один екземпляр, та надає глобальну точку доступу до нього
 
-**Приклад 1 (TypeScript)**
+**Приклад 1 (JavaScript)**
+
+```js
+const singleton = (function () {
+    let instance;
+
+    function User(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    return {
+        getInstance: function (name, age) {
+            if (!instance) {
+                instance = new User(name, age);
+            }
+
+            return instance;
+        },
+    };
+})();
+const user1 = singleton.getInstance("Peter", 24);
+const user2 = singleton.getInstance("Mark", 26);
+console.log(user1 === user2); // true;
+```
+
+**Приклад 2 (TypeScript)**
 
 ```ts
 /**
