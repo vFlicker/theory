@@ -21,6 +21,8 @@
 -   addAt — вставити вузол у певне місце (за індексом)
 -   removeAt — видалити певний вузол (за індексом)
 
+**Приклад 1**
+
 ```js
 /**
  * Вузол.
@@ -167,6 +169,92 @@ class LinkedList {
 
         this.#length -= 1;
         return currentNode.element;
+    }
+}
+```
+
+**Приклад 2**
+
+```js
+class Node {
+    constructor(data, next = null) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+class LinkedList {
+    #head = null;
+    #tail = null;
+
+    append(data) {
+        const node = new Node(data);
+
+        if (this.#tail) this.#tail.next = node;
+
+        if (!this.#head) this.#head = node;
+
+        this.#tail = node;
+    }
+
+    prepend(data) {
+        const node = new Node(data, this.#head);
+
+        this.#head = node;
+
+        if (!this.#tail) this.#tail = node;
+    }
+
+    insertAfter(after, data) {
+        const found = this.find(after);
+
+        if (!found) return;
+
+        found.next = new Node(data, found.next);
+    }
+
+    find(data) {
+        if (!this.#head) return;
+
+        let current = this.#head;
+
+        while (current) {
+            if (current.data === data) return current;
+            current = current.next;
+        }
+    }
+
+    toArray() {
+        const output = [];
+        let current = this.#head;
+
+        while (current) {
+            output.push(current);
+            current = current.next;
+        }
+
+        return output;
+    }
+
+    remove(data) {
+        if (!this.#head) return;
+
+        while (this.#head && this.#head.data === data) {
+            this.#head = this.#head.next;
+        }
+
+        let current = this.#head;
+
+        while (current.next) {
+            if (current.next.data === data) {
+                current.next = current.next.next;
+                return;
+            }
+
+            current = current.next;
+        }
+
+        if (this.#tail.data === data) this.#tail = current;
     }
 }
 ```
