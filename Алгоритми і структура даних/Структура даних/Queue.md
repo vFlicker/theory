@@ -4,38 +4,50 @@
 
 ### Методи
 
--   enqueue — увійти в чергу, додати елемент до кінця
+-   size — отримати кількість елементів у черзі
+-   enqueue — увійти в чергу, додати елемент у кінець
 -   dequeue — залишити чергу, видалити перший елемент та повернути його
 -   front — отримати перший елемент
 -   isEmpty — перевірити, чи порожня черга
--   size — отримати кількість елементів у черзі
 
 ```js
 class Queue {
     #collection = [];
 
-    print() {
-        console.log(this.#collection);
+    /**
+     * Отримати кількість елементів у черзі.
+     */
+    get size() {
+        return this.#collection.length;
     }
 
+    /**
+     * Увійти в чергу, додати елемент у кінець
+     */
     enqueue(element) {
         this.#collection.push(element);
     }
 
+    /**
+     * Залишити чергу, видалити перший елемент
+     * та повернути його.
+     */
     dequeue() {
         return this.#collection.shift();
     }
 
+    /**
+     * Отримати перший елемент.
+     */
     front() {
         return this.#collection[0];
     }
 
+    /**
+     * Перевірити, чи порожня черга.
+     */
     isEmpty() {
         return this.#collection.length === 0;
-    }
-
-    size() {
-        return this.#collection.length;
     }
 }
 ```
