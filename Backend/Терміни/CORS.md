@@ -30,8 +30,8 @@ CORS (Cross-Origin Resource Sharing / спільне використання р
 ### Для «непростих» запитів перед основним запитом надсилається попереднє запит
 
 1. Браузер надсилає запит OPTIONS на ту саму адресу із заголовками:
-    - Access-Control-Request-Method – містить запитуваний метод,
-    - Access-Control-Request-Headers – перераховує «непрості» запитувані заголовки.
+    - Access-Control-Request-Method — містить запитуваний метод,
+    - Access-Control-Request-Headers — перераховує «непрості» запитувані заголовки.
 2. Сервер повинен відповісти зі статусом 200 та заголовками
     - Access-Control-Allow-Methods зі списком дозволених методів,
     - Access-Control-Allow-Headers зі списком дозволених заголовків,

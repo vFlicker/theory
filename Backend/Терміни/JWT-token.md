@@ -18,7 +18,7 @@
 }
 ```
 
--   Корисне навантаження – заяви про сутність (як правило, користувача)
+-   Корисне навантаження — заяви про сутність (як правило, користувача)
 
 ```json
 {
@@ -33,8 +33,13 @@
 -   Підпис — шоб створити частину підпису, вам потрібно взяти закодований заголовок, закодовану корисну інформацію, секрет, алгоритм, указаний у заголовку, і підписати це. Підпис використовується для перевірки того, що повідомлення не було змінено на шляху, і, у випадку маркерів, підписаних закритим ключем, він також може підтвердити, що відправник JWT є тим, за кого він себе видає
 
 ```js
-const SECRET_KEY = 'cAtwa1kkEy';
-const unsignedToken = base64urlEncode(header) + '.' + base64urlEncode(payload);
-const signature = HMAC-SHA256(unsignedToken, SECRET_KEY);
-const token = encodeBase64Url(header) + '.' + encodeBase64Url(payload) + '.' + encodeBase64Url(signature);
+const SECRET_KEY = "cAtwa1kkEy";
+const unsignedToken = base64urlEncode(header) + "." + base64urlEncode(payload);
+const signature = HMAC - SHA256(unsignedToken, SECRET_KEY);
+const token =
+    encodeBase64Url(header) +
+    "." +
+    encodeBase64Url(payload) +
+    "." +
+    encodeBase64Url(signature);
 ```
