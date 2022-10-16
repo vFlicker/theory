@@ -87,5 +87,3 @@ const calculate = (array) => {
     return array;
 };
 ```
-
--   **O(log2n \* n)** — (швидке сортування)
