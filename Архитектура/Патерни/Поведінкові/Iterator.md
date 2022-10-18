@@ -5,6 +5,25 @@
 **Приклад 1 (JavaScript)**
 
 ```js
+class Fibonacci {
+    #pre = 0;
+    #cur = 1;
+
+    next() {
+        [this.#pre, this.#cur] = [this.#cur, this.#pre + this.#cur];
+        return { done: false, value: this.#cur };
+    }
+}
+
+const iterator = new Fibonacci();
+console.log(iterator.next());
+console.log(iterator.next());
+console.log(iterator.next());
+```
+
+**Приклад 2 (JavaScript)**
+
+```js
 class Cursor {
     constructor(data) {
         this.data = data;
@@ -27,6 +46,7 @@ class Cursor {
     }
 }
 ```
+
 **Приклад 2 (TypeScript)**
 
 ```ts
