@@ -9,6 +9,51 @@
 -   pop — видалити верхній елемент, повернути його
 -   peek — повернути верхній елемент
 
+**Приклад 1**
+
+```js
+const questions = [
+    {
+        text: "text 1",
+        answers: [
+            { title: "title 1.1", isCorrect: false },
+            { title: "title 1.2", isCorrect: false },
+            { title: "title 1.3", isCorrect: true },
+        ],
+    },
+    {
+        text: "text 2",
+        answers: [
+            { title: "title 2.1", isCorrect: true },
+            { title: "title 2.2", isCorrect: false },
+            { title: "title 2.3", isCorrect: false },
+        ],
+    },
+];
+
+console.log(questions[0].text);
+
+const history = [];
+
+const changeText = (newText) => {
+    const oldText = questions[0].text;
+    questions[0].text = newText;
+    history.push(() => (questions[0].text = oldText));
+};
+
+changeText("new text 1");
+console.log(questions[0].text);
+
+changeText("new text 2");
+console.log(questions[0].text);
+
+history.pop()();
+history.pop()();
+console.log(questions[0].text);
+```
+
+**Приклад 2**
+
 ```js
 class Stack {
     #count = 0;
