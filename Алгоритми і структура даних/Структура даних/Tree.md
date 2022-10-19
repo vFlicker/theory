@@ -24,14 +24,13 @@ class BST {
     #root = null;
 
     add(data) {
-        const node = this.#root;
+        const newNode = new Node(data);
 
-        if (!node) {
-            this.#root = new Node(data);
-            return;
+        if (!this.#root) {
+            this.#root = newNode;
+        } else {
+            this.#addNode(this.#root, newNode);
         }
-
-        return this.#searchTree(node, data);
     }
 
     findMin() {
@@ -117,30 +116,21 @@ class BST {
         return node;
     }
 
-    #searchTree(node, data) {
-        if (data < node.data) {
-            if (!node.left) {
-                node.left = new Node(data);
-                return;
+    #addNode(parentNode, newNode) {
+        if (newNode.data < parentNode.data) {
+            if (!parentNode.left) {
+                parentNode.left = newNode;
+            } else {
+                this.#addNode(parentNode.left, newNode);
             }
-
-            if (node.left) {
-                return this.#searchTree(node.left, data);
-            }
-        }
-
-        if (data > node.data) {
-            if (!node.right) {
-                node.right = new Node(data);
-                return;
-            }
-
-            if (node.right) {
-                return this.#searchTree(node.right, data);
+        } else {
+            if (!parentNode.right) {
+                parentNode.right = newNode;
+            } else {
+                this.#addNode(parentNode.right, newNode);
             }
         }
-
-        return null;
     }
 }
+
 ```

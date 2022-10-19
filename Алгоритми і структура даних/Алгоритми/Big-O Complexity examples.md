@@ -1,6 +1,8 @@
 ## Big-O Complexity
 
-### Складність алгоритму за часом — O(1)
+### Складність алгоритму за часом
+
+#### O(1)
 
 ```js
 const calculate = () => {
@@ -23,7 +25,7 @@ const calculate = (array) => {
 };
 ```
 
-### Складність алгоритму за часом — O(n)
+##### O(n)
 
 ```js
 const calculate = (array) => {
@@ -47,7 +49,7 @@ const calculate = (array) => {
 };
 ```
 
-### Складність алгоритму за часом — O(n^2)
+#### O(n^2)
 
 ```js
 const calculate = (array) => {
