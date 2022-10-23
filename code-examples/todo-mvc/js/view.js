@@ -1,4 +1,10 @@
-import { EventEmitter, createElement } from './helpers.js';
+import { createElement, EventEmitter } from './utils/index.js';
+
+const ButtonText = {
+  CHANGE: 'Change',
+  DELETE: 'Delete',
+  SAVE: 'Save',
+};
 
 class View extends EventEmitter {
     constructor() {
@@ -11,15 +17,36 @@ class View extends EventEmitter {
         this.form.addEventListener('submit', this.handleAdd.bind(this));
     }
 
-    createListItem(todo) {
-        const checkbox = createElement('input', { type: 'checkbox', className: 'checkbox', checked: todo.completed ? 'checked' : '' });
-        const label = createElement('label', { className: 'title' }, todo.title);
-        const editInput = createElement('input', { type: 'text', className: 'textfield' });
-        const editButton = createElement('button', { className: 'edit' }, 'Изменить');
-        const deleteButton = createElement('button', { className: 'remove' }, 'Удалить');
-        const item = createElement('li', { className: `todo-item${todo.completed ? ' completed': ''}`, 'data-id': todo.id }, checkbox, label, editInput, editButton, deleteButton);
+    createListItem({ completed, title, id }) {
+      const checkbox = createElement('input', {
+        type: 'checkbox',
+        className: 'checkbox',
+        checked: completed ? 'checked' : '',
+      });
 
-        return this.addEventListeners(item);
+      const label = createElement('label', {
+          className: 'title',
+        }, title);
+
+      const editInput = createElement('input', {
+        type: 'text',
+        className: 'textfield',
+      });
+
+      const editButton = createElement('button', {
+        className: 'edit'
+      }, ButtonText.CHANGE);
+
+      const deleteButton = createElement('button', {
+        className: 'remove'
+      }, ButtonText.DELETE);
+
+      const item = createElement('li', {
+        className: `todo-item${completed ? ' completed': ''}`,
+        'data-id': id
+      }, checkbox, label, editInput, editButton, deleteButton);
+
+      return this.addEventListeners(item);
     }
 
     addEventListeners(item) {
@@ -41,7 +68,10 @@ class View extends EventEmitter {
     handleAdd(event) {
         event.preventDefault();
 
-        if (!this.input.value) return alert('Необходимо ввести название задачи.');
+        if (!this.input.value) {
+          alert('Please, enter the name of the task.');
+          return;
+        }
 
         const value = this.input.value;
 
@@ -69,7 +99,7 @@ class View extends EventEmitter {
             this.emit('edit', { id, title });
         } else {
             input.value = label.textContent;
-            editButton.textContent = 'Сохранить';
+            editButton.textContent = ButtonText.SAVE;
             listItem.classList.add('editing');
         }
     }
@@ -115,7 +145,7 @@ class View extends EventEmitter {
         const editButton = listItem.querySelector('button.edit');
 
         label.textContent = todo.title;
-        editButton.textContent = 'Изменить';
+        editButton.textContent = ButtonText.CHANGE;
         listItem.classList.remove('editing');
     }
 

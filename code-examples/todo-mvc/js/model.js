@@ -1,4 +1,4 @@
-import { EventEmitter } from './helpers.js';
+import { EventEmitter } from './utils/index.js';
 
 class Model extends EventEmitter {
     constructor(items = []) {
