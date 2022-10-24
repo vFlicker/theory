@@ -28,10 +28,10 @@ const renderChildren = (element, children) => {
 export const createElement = (type, props, ...children) => {
   const element = document.createElement(type);
 
-  Object.entries(props).forEach(([key, value]) => {
+  for (const [key, value] of Object.entries(props)) {
     const attribute = createAttribute(key);
     element.setAttribute(attribute, value);
-  });
+  }
 
   renderChildren(element, children);
 

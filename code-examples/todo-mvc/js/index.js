@@ -1,6 +1,6 @@
-import Model from './model.js';
-import View from './view.js';
-import Controller from './controller.js';
+import { Model } from './model.js';
+import { View } from './view.js';
+import { Controller } from './controller.js';
 import { store } from './utils/index.js';
 
 const data = store.getData();

@@ -7,5 +7,5 @@ export const getData = () => {
   const rawData = localStorage.getItem('todos');
   const data = JSON.parse(rawData);
 
-  return data;
+  return data || undefined;
 };

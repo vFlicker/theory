@@ -1,42 +1,43 @@
-class Controller {
-    constructor(model, view) {
-        this.model = model;
-        this.view = view;
+export class Controller {
+  #model = null;
+  #view = null;
 
-        view.on('add', this.addTodo.bind(this));
-        view.on('toggle', this.toggleTodo.bind(this));
-        view.on('edit', this.editTodo.bind(this));
-        view.on('remove', this.removeTodo.bind(this));
+  constructor(model, view) {
+    this.#model = model;
+    this.#view = view;
 
-        view.show(model.items);
-    }
+    view.on('add', this.addTodo);
+    view.on('toggle', this.toggleTodo);
+    view.on('edit', this.editTodo);
+    view.on('remove', this.removeTodo);
 
-    addTodo(title) {
-        const item = this.model.addItem({
-            id: Date.now(),
-            title,
-            completed: false
-        });
+    view.renderItems(model.items);
+  }
 
-        this.view.addItem(item);
-    }
+  addTodo = async (title) => {
+    const item = await this.#model.addItem({
+      id: Date.now().toString(),
+      title,
+      completed: false
+    });
 
-    toggleTodo({ id, completed }) {
-        const item = this.model.updateItem(id, { completed });
+    this.#view.addItem(item);
+  }
 
-        this.view.toggleItem(item);
-    }
+  toggleTodo = async ({ id, completed }) => {
+    const item = await this.#model.updateItem(id, { completed });
 
-    editTodo({ id, title }) {
-        const item = this.model.updateItem(id, { title });
+    this.#view.toggleItem(item);
+  }
 
-        this.view.editItem(item);
-    }
+  editTodo = async ({ id, title }) => {
+      const item = await this.#model.updateItem(id, { title });
 
-    removeTodo(id) {
-        this.model.removeItem(id);
-        this.view.removeItem(id);
-    }
+      this.#view.editItem(item);
+  }
+
+  removeTodo = async (id) => {
+      await this.#model.removeItem(id);
+      this.#view.removeItem(id);
+  }
 }
-
-export default Controller;
