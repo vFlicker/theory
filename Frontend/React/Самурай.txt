@@ -51,32 +51,6 @@ case TOGGLE_IS_FOLLOWING_PROGRESS:
 <button disabled={props.followingInProgress.some((id) => id !== userId)} />
 
 
-const array = [1, 2, 3];
-const isWeHaveElementsInArray = !!array.length;
-Boolean(array.length) === !!array.length;
-
-const el = document.querySelector('.my-class');
-if (!!ell) { do something }
-
-
-Server API:
- 1. URL: 'site.com/users'
- 2. http-request type: get/post/put
- 3. request payload
- 4. response data
- 5. http codes: 200, 404
-
-  GET - POST
-  'site.com/users/get' - get
-  'site.com/users/post' - post
-  'site.com/users/update' - post
-  'site.com/users/delete' - post
-
-Server REST API:
-  'site.com/users'
-  GET - POST - PUT - DELETE (CRUD)
-
-
 Axios:
  withCredentials: true — означає, що якщо ми авторизовані на сервері
  на який ми робимо запит з нашої соц.сеті, тобто ми вже маємо cookie з
