@@ -1,20 +1,4 @@
-## Бібліотеки
-
-### classnames
-
-```jsx
-import cn from "classnames";
-
-cn("menu", "active"); // 'menu active'
-
-let isActive = true;
-cn("menu", { active: isActive }); // 'menu active'
-
-isActive = false;
-cn("menu", { active: isActive }); // 'menu'
-```
-
-### Formik і Yup
+## Formik і Yup
 
 ```jsx
 import React from "react";
@@ -94,11 +78,3 @@ export function SignUp() {
     );
 }
 ```
-
-### Reselect
-
-Бібліотека для створення мемоїзації функцій «селектора»
-
--   Функція приймає state та повертає дані з нього
--   Приховує внутрішню архітектуру store від користувача
--   Можна робити складні вибірки із store
