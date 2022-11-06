@@ -1,4 +1,4 @@
-## Formik і Yup
+## Formik & Yup
 
 ```jsx
 import React from "react";
