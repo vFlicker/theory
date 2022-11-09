@@ -41,8 +41,10 @@ Open-source бібліотека створена Facebook, щоб спрост�
 
 <a href="https://www.robinwieruch.de/react-hooks-fetch-data/">How to fetch data with React Hooks</a>
 
-#### Інше
+#### Контекст
 
 <a href="https://dmitripavlutin.com/react-context-and-usecontext/">A Guide to React Context</a>
+
+#### Інше
 
 <a href="https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/">Why I don't use React.FC</a>
