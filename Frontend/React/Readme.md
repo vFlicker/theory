@@ -33,4 +33,16 @@ Open-source бібліотека створена Facebook, щоб спрост�
 
 ### Література
 
+#### Хуки
+
+<a href="https://habr.com/ru/company/ruvds/blog/445276/">Повний посібник з useEffect (ru)</a>
+
+<a href="https://overreacted.io/a-complete-guide-to-useeffect/">Повний посібник з useEffect (eng)</a>
+
+<a href="https://www.robinwieruch.de/react-hooks-fetch-data/">How to fetch data with React Hooks</a>
+
+#### Інше
+
+<a href="https://dmitripavlutin.com/react-context-and-usecontext/">A Guide to React Context</a>
+
 <a href="https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/">Why I don't use React.FC</a>
