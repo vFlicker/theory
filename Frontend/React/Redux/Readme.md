@@ -154,3 +154,5 @@ const rootReducer = combineReducers({
 ### Література
 
 <a href="https://habr.com/ru/post/439104/">Redux. Простий як граблі</a>
+
+<a href="https://www.valentinog.com/blog/redux/#modern-redux-with-redux-toolkit-createslice">React Redux Tutorial for Beginners</a>
