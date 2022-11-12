@@ -48,3 +48,5 @@ Open-source бібліотека створена Facebook, щоб спрост�
 #### Інше
 
 <a href="https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/">Why I don't use React.FC</a>
+
+<a href="https://www.youtube.com/watch?v=5pIUicKWyrQ">Оптимізації</a>

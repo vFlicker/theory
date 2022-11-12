@@ -1,3 +1,5 @@
+## Redux Toolkit
+
 ### Store
 
 ```js
@@ -60,6 +62,9 @@ const fetchLinksSuccess = (payload) => ({ type: FETCH_LINKS_SUCCESS, payload });
 const loginSuccess = createAction("LOGIN_SUCCESS");
 const fetchLinksRequest = createAction("FETCH_LINKS_REQUEST");
 const fetchLinksSuccess = createAction("FETCH_LINKS_SUCCESS");
+const fetchLinksSuccess2 = createAction("FETCH_LINKS_SUCCESS", (value) => ({
+    payload: value,
+}));
 ```
 
 ### Reducer
@@ -100,6 +105,16 @@ const authReducer = createReducer(authState, {
         state.error = action.payload;
     },
 });
+
+const authReducer = createReducer(authState, (builder) => {
+    builder
+        .addCase(loginSuccess, (state, action) => {
+            state.token = action.payload;
+        })
+        .addCase(loginFailed, (state, action) => {
+            state.error = action.payload;
+        });
+});
 ```
 
 ### Slice
@@ -119,6 +134,7 @@ const authReducer = createReducer(authState, {
         state.error = action.payload;
     },
 });
+
 /**
  * Slice.
  */
