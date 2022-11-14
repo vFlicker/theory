@@ -33,6 +33,8 @@ Open-source бібліотека створена Facebook, щоб спрост�
 
 ### Література
 
+<a href="https://beta.reactjs.org/">Документація</a>
+
 #### Хуки
 
 <a href="https://habr.com/ru/company/ruvds/blog/445276/">Повний посібник з useEffect (ru)</a>
@@ -44,6 +46,10 @@ Open-source бібліотека створена Facebook, щоб спрост�
 #### Контекст
 
 <a href="https://dmitripavlutin.com/react-context-and-usecontext/">A Guide to React Context</a>
+
+#### Рендеринг
+
+<a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">Blogged Answers: A (Mostly) Complete Guide to React Rendering Behavior</a>
 
 #### Інше
 
