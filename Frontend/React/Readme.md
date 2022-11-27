@@ -51,8 +51,16 @@ Open-source бібліотека створена Facebook, щоб спрост�
 
 <a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">Blogged Answers: A (Mostly) Complete Guide to React Rendering Behavior</a>
 
-#### Інше
+#### Портали
+
+<a href="https://blog.logrocket.com/build-modal-with-react-portals/">Building a modal in React with React Portals</a>
+
+#### React TypeScript
+
+<a href="https://react-typescript-cheatsheet.netlify.app/docs/basic/setup">React TypeScript</a>
 
 <a href="https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/">Why I don't use React.FC</a>
+
+#### Оптимізації
 
 <a href="https://www.youtube.com/watch?v=5pIUicKWyrQ">Оптимізації</a>
