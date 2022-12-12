@@ -14,9 +14,6 @@ Open-source бібліотека створена Facebook, щоб спрост�
 -   Не можна використовувати умовні оператори
 -   Можна вставляти масиви елементів
 
-### ReactDOM.render
-
-Перетворює React-елементи в html-елементи та рендерить їх на сторінці
 
 ### StrictMode (суворий режим)
 
@@ -33,8 +30,6 @@ Open-source бібліотека створена Facebook, щоб спрост�
 
 ### Література
 
-<a href="https://beta.reactjs.org/">Документація</a>
-
 #### Хуки
 
 <a href="https://habr.com/ru/company/ruvds/blog/445276/">Повний посібник з useEffect (ru)</a>
@@ -43,17 +38,19 @@ Open-source бібліотека створена Facebook, щоб спрост�
 
 <a href="https://www.robinwieruch.de/react-hooks-fetch-data/">How to fetch data with React Hooks</a>
 
-#### Контекст
-
 <a href="https://dmitripavlutin.com/react-context-and-usecontext/">A Guide to React Context</a>
+
+#### Портали
+
+<a href="https://blog.logrocket.com/build-modal-with-react-portals/">Building a modal in React with React Portals</a>
 
 #### Рендеринг
 
 <a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">Blogged Answers: A (Mostly) Complete Guide to React Rendering Behavior</a>
 
-#### Портали
+#### Concurrent Mode
 
-<a href="https://blog.logrocket.com/build-modal-with-react-portals/">Building a modal in React with React Portals</a>
+<a href="https://habr.com/ru/company/yandex/blog/514016/">Concurrent Mode</a>
 
 #### React TypeScript
 
