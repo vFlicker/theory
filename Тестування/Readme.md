@@ -94,6 +94,8 @@ describe("Counter", () => {
 
 ### Література
 
-<a href="https://codeutopia.net/blog/2015/03/01/unit-testing-tdd-and-bdd/">Піраміда тестування</a>
+<a href="https://codeutopia.net/blog/2015/03/01/unit-testing-tdd-and-bdd/">Різниця між Unit-тестами, TDD та BDD</a>
+
+<a href="https://martinfowler.com/articles/practical-test-pyramid.html">The Practical Test Pyramid (дуже хороша стаття)</a>
 
 <a href="https://ru.hexlet.io/blog/posts/how-to-test-code">Починаємо писати тести (правильно)</a>
