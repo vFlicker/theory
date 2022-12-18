@@ -98,4 +98,6 @@ describe("Counter", () => {
 
 <a href="https://martinfowler.com/articles/practical-test-pyramid.html">The Practical Test Pyramid (дуже хороша стаття)</a>
 
-<a href="https://ru.hexlet.io/blog/posts/how-to-test-code">Починаємо писати тести (правильно)</a>
+<a href="https://medium.com/@eugenkiss/lean-testing-or-why-unit-tests-are-worse-than-you-think-b6500139a009">Економне тестування або чому модульні тести гірші, ніж ви думаєте</a>
+
+<a href="https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests">Static vs Unit vs Integration vs E2E Testing for Frontend Apps</a>
