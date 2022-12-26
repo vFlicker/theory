@@ -16,7 +16,7 @@
 -   Підвищення якості тестування
 -   Регресія програми (впевненість, що новий код не зламав старий)
 
-### Тестування коду із зовнішніми залежностями
+### Ізоляція тестової одиниці
 
 #### Mock (імітації)
 
@@ -61,10 +61,13 @@
  */
 suite("Counter", () => {
     test("tick increases count to 1", () => {
+        // arrange (організувати)
         const counter = new Counter();
 
+        // act (діяти)
         counter.tick();
 
+        // assert (стверджувати)
         assert.equal(counter.count, 1);
     });
 });
@@ -78,11 +81,14 @@ suite("Counter", () => {
  */
 describe("Counter", () => {
     it("should increase count by 1 after calling tick", () => {
+        // given (дано)
         const counter = new Counter();
         const expectedCount = counter.count + 1;
 
+        // when (коли)
         counter.tick();
 
+        // then (тоді)
         expect(equal(counter.count)).toBe(expectedCount);
     });
 });
@@ -96,7 +102,7 @@ describe("Counter", () => {
 
 <a href="https://codeutopia.net/blog/2015/03/01/unit-testing-tdd-and-bdd/">Різниця між Unit-тестами, TDD та BDD</a>
 
-<a href="https://martinfowler.com/articles/practical-test-pyramid.html">The Practical Test Pyramid (дуже хороша стаття)</a>
+<a href="https://martinfowler.com/articles/practical-test-pyramid.html">The Practical Test Pyramid</a>
 
 <a href="https://medium.com/@eugenkiss/lean-testing-or-why-unit-tests-are-worse-than-you-think-b6500139a009">Економне тестування або чому модульні тести гірші, ніж ви думаєте</a>
 
