@@ -14,7 +14,6 @@ Open-source бібліотека створена Facebook, щоб спрост�
 -   Не можна використовувати умовні оператори
 -   Можна вставляти масиви елементів
 
-
 ### StrictMode (суворий режим)
 
 -   Виявлення небезпечних методів життєвого циклу
@@ -57,6 +56,10 @@ Open-source бібліотека створена Facebook, щоб спрост�
 <a href="https://react-typescript-cheatsheet.netlify.app/docs/basic/setup">React TypeScript</a>
 
 <a href="https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/">Why I don't use React.FC</a>
+
+#### Архітектура
+
+<a href="https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/">Scaling your Redux App with ducks</a>
 
 #### Оптимізації
 
