@@ -49,8 +49,8 @@ Use case — це деталізація, опис дії, яку може зр�
 
 <a href="https://habr.com/ru/post/499078/">Clean Architecture на TypeScript та React</a>
 
-<a href="https://bespoyasov.ru/blog/clean-architecture-on-frontend/">Чиста архітектура у фронтенті</a>
+<a href="https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/">DDD, Hexagonal, Onion, Clean, CQRS, … How I put it all together</a>
 
-<a href="https://habr.com/ru/post/499078/">Clean Architecture на TypeScript та React</a>
+<a href="https://bespoyasov.ru/blog/clean-architecture-on-frontend/">Чиста архітектура у фронтенті</a>
 
 <a href="https://feature-sliced.design/">Feature-Sliced Design</a>
