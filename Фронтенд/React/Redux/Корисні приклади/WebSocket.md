@@ -1,6 +1,6 @@
-## WebSocket
+# WebSocket
 
-### Data access layer
+## Data access layer
 
 ```ts
 type EventsNamesType = "messages-received" | "status-changed";
@@ -105,7 +105,7 @@ export const chatAPI = {
 };
 ```
 
-### Business logic
+## Business logic
 
 ```ts
 import { Action, Dispatch } from "redux";
@@ -221,7 +221,7 @@ export const sendMessage =
 export default chatReducer;
 ```
 
-### UI
+## UI
 
 ```tsx
 import React, { useEffect, useRef, useState } from "react";

@@ -1,6 +1,6 @@
-## Redux Toolkit
+# Redux Toolkit
 
-### Store
+## Store
 
 ```js
 /**
@@ -40,7 +40,7 @@ const store = configureStore({
 });
 ```
 
-### Action
+## Action
 
 ```js
 /**
@@ -67,7 +67,7 @@ const fetchLinksSuccess2 = createAction("FETCH_LINKS_SUCCESS", (value) => ({
 }));
 ```
 
-### Reducer
+## Reducer
 
 ```js
 /**
@@ -117,7 +117,7 @@ const authReducer = createReducer(authState, (builder) => {
 });
 ```
 
-### Slice
+## Slice
 
 ```js
 /**
@@ -155,7 +155,7 @@ const { loginSuccess, loginFailed } = authSlice.actions;
 const authReducer = authSlice.reducer;
 ```
 
-### Redux Thunk
+## Redux Thunk
 
 ```js
 /**

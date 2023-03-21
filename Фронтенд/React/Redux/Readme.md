@@ -1,4 +1,4 @@
-## Redux
+# Redux
 
 Бібліотека (state менеджер), що реалізує патерн <a href='/Архитектура/Патерни/Архітектурні/Flux.md'>Flux</a>
 
@@ -10,11 +10,11 @@
 -   Як UI може використовуватись будь-яка бібліотека або фреймворк
 -   Вводить нову сутність — reducer
 
-### Reducer
+## Reducer
 
 Чиста функція (залежить виключно від state та action, які він отримав) оновлює глобальний state у відповідь на action або повертає старий state, якщо action не підійшов
 
-### Проста реалізація Redux
+## Проста реалізація Redux
 
 ```js
 const createStore = (reducer, initialState) => {
@@ -31,8 +31,8 @@ const createStore = (reducer, initialState) => {
 const combineReducers = (reducersMap) => (state, action) => {
     const nextState = {};
 
-    for (const [key, reducer] of Object.entries(reducersMap)) {
-        nextState[key] = reducer(state[key], action);
+    for (const [reducerName, reducer] of Object.entries(reducersMap)) {
+        nextState[reducerName] = reducer(state[reducerName], action);
     }
 
     return nextState;
@@ -81,7 +81,7 @@ const rootReducer = combineReducers({
 });
 ```
 
-### Література
+## Література
 
 <a href="https://habr.com/ru/post/439104/">Redux. Простий як граблі</a>
 
