@@ -1,34 +1,33 @@
 const TIMEOUT = 1000;
 
-const buyProducts = () => {
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const buyProducts = async () => {
   console.log(`> Иду за продуктами...`);
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const products = [`Картофель`, `Капуста`, `Мясо`];
-      resolve(products);
-    }, TIMEOUT);
-  });
+
+  await delay(TIMEOUT);
+
+  const products = [`Картофель`, `Капуста`, `Мясо`];
+  return products;
 };
 
-const prepareProducts = (products) => {
+const prepareProducts = async (products) => {
   console.log(`> Нарезаю продукты: ${products.join(`, `)}`);
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      console.log(`> Продукты нарезаны!`);
-      resolve(products);
-    }, TIMEOUT);
-  });
+
+  await delay(TIMEOUT);
+
+  console.log(`> Продукты нарезаны!`);
 }
 
-const makeSoup = (preparedProducts) => {
+const makeSoup = async (preparedProducts) => {
   console.log(`> Начинаю варить суп из: ${preparedProducts.join(`, `)}`);
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      return Math.random() > 0.5 ?
-        resolve(`> Суп готов!`) :
-        reject(`> Упс! Сломалась плита.`);
-    }, TIMEOUT);
-  });
+
+  await delay(TIMEOUT);
+
+  const ok = Math.random() > 0.5;
+  if (!ok) return Promise.reject(`> Упс! Сломалась плита.`);
+
+  return `> Суп готов!`;
 };
 
 (async () => {

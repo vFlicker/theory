@@ -22,7 +22,6 @@ export class InputValidator {
   #element = null;
   #settings = null;
   #dataValidator = null;
-  #message = null;
 
   constructor(element, settings) {
     this.#element = element;
@@ -41,12 +40,12 @@ export class InputValidator {
       const [failed] = results.failed;
       const messageTemplate = this.#settings.messages[failed.rule];
   
-      this.#message = createMessage(messageTemplate, {
+      const message = createMessage(messageTemplate, {
         data: results.data,
         rule: failed.param
       });
 
-      this.#onError();
+      this.#onError(message);
     } else {
       this.#onSuccess();
     }
@@ -60,11 +59,11 @@ export class InputValidator {
     };
   }
 
-  #onError() {
+  #onError(message) {
     const element = this.#element.parentNode;
     element.classList.add('has-error');
     element.classList.remove('has-success');
-    element.querySelector('.help-block').textContent = `Error: ${this.#message}`;
+    element.querySelector('.help-block').textContent = `Error: ${message}`;
   };
   
   #onSuccess() {

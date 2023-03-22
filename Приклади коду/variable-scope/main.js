@@ -10,10 +10,10 @@ const headers = document.querySelectorAll('h1');
 
 const wizards = ['Саурон', 'Радагаст', 'Пендальф'].map((name) => new Wizard(name));
 
-for (var i = headers.length; i--;) {
-  var header = headers[i];
-  header.addEventListener('click', wizards[i].selectHandler);
-};
+// for (var i = headers.length; i--;) {
+//   var header = headers[i];
+//   header.addEventListener('click', wizards[i].selectHandler);
+// };
 
 // for (var i = headers.length; i--;) {
 //   var header = headers[i];

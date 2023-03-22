@@ -15,7 +15,7 @@
   }
   
   class InMemoryPersonStorage {
-    persons = new Set;
+    persons = new Set();
   
     store(person) {
       this.persons.add(person);
@@ -49,7 +49,7 @@ class Person {
 }
 
 class InMemoryPersonStorage {
-  persons = new Set;
+  persons = new Set();
 
   store(person) {
     this.persons.add(person);

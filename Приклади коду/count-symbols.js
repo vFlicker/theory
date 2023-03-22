@@ -13,7 +13,7 @@ const countSymbols = (string) => {
     if (map.has(char)) newValue += map.get(char)
 
 
-    // оновлюємо скільки раз поточний символ стрітився
+    // оновлюємо скільки раз поточний символ зустрівся
     map.set(char, newValue);
   }
 

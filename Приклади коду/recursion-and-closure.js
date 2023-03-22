@@ -90,22 +90,37 @@ const getCode = (object) => {
   return newData;
 }
 
-// const getCode = (lots) => {
-//   const codes = [];
+const getCode2 = (lots) => {
+  const codes = [];
 
-//   for (const obj of lots) {
-//     for (const [key, value] of Object.entries(obj)) {
-//       if (key === 'okved' || key === 'nomenclature') {
-//         for (const item of value) {
-//           codes.push(item.code);
-//         }
-//       }
-//     }
-//   }
+  for (const obj of lots) {
+    for (const [key, value] of Object.entries(obj)) {
+      if (key === 'okved' || key === 'nomenclature') {
+        for (const item of value) {
+          codes.push(item.code);
+        }
+      }
+    }
+  }
 
 
-//   return codes;
-// }
+  return codes;
+}
+
+const getCode3 = (lots) => {
+  const floatedData = lots.flatMap(({ okved, nomenclature }) => {
+    return (okved || []).concat(nomenclature || [])
+  });
+
+  const codes = floatedData.map(({ code }) => code);
+  return codes;
+};
 
 const codes = getCode(data.lots);
 console.log(codes);
+
+const codes2 = getCode2(data.lots);
+console.log(codes2);
+
+const codes3 = getCode3(data.lots);
+console.log(codes3);
