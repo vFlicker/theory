@@ -1,34 +1,34 @@
-## Router
+# Router
 
 Router (маршрутизатор) — окремий випадок оброблювача (middleware), який відповідає за конкретний результат та обробляє конкретний запит із конкретним методом
 
-### `app.method(path, handler)`
+## `app.method(path, handler)`
 
 -   app — екземпляр поточної програми express
 -   method — метод, що обробляється запит (get, post, put, delete)
 -   path — шлях (реєстронезалежний за умовчанням), який обробляє обробник ('/user', '/profile/admin')
 -   handler — обробник, який спрацює при збігу шляху та методу запиту
 
-### Методи
+## Методи
 
 -   Підтримка всіх базових методів — GET, HEAD, POST, PUT, DELETE
 -   Підтримка додаткових методів — OPTIONS, PATCH
 -   Усі методи записуються з маленької літери — get, post, put, delete
 -   Спеціальний метод all дозволяє обробити запит вручну
 
-### Request extends http.IncomingMessage
+## Request extends http.IncomingMessage
 
 -   Розширює стандартні можливості http.IncomingMessage
 -   Автоматично розбирає query в об'єкт — req.query
 -   Додаткові методи та поля для роботи з кодуванням, параметрами шляхів тощо.
 
-### Request.body
+## Request.body
 
 -   За замовчуванням req.body дорівнює undefined
 -   Express не читає тіло запиту за замовчуванням, для цього йому потрібно знати у якому форматі знаходяться дані та як їх читати
 -   Для керування автоматичним читанням даних із запиту використовуються сторонні бібліотеки (body parsers)
 
-### Body parser
+## Body parser
 
 -   Бібліотека body-parser працює з наступними форматами даних
     -   application/json
@@ -37,13 +37,13 @@ Router (маршрутизатор) — окремий випадок оброб
 -   Бібліотеки multer, busboy, multiparty працюють із даними у форматі форми
     -   multipart/form-data
 
-### Response extends http.ServerResponse
+## Response extends http.ServerResponse
 
 -   Розширює стандартні можливості http.ServerResponse
 -   Автоматично підбирає правильну відповідь відповідно до вмісту в res.send
 -   Додає додаткові методи для роботи з файлами, частковим надсиланням даних і т.д.
 
-### Шляхи
+## Шляхи
 
 ```js
 /*
@@ -68,13 +68,13 @@ app.get(/keks/, (req, res) => res.send(`keks`));
 app.get(/.\*keks$/, (req, res) => res.send(`keks`));
 ```
 
-### express.static
+## express.static
 
 -   Роздає статику з диска
 -   Слідкує за правильним кешуванням файлів
 -   Надає index.html як кореневий ресурс
 
-### Асинхронна обробка запиту
+## Асинхронна обробка запиту
 
 ```js
 /*

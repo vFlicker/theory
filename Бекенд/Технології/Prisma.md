@@ -1,6 +1,6 @@
-## Prisma
+# Prisma
 
-### Корисні команди
+## Корисні команди
 
 -   npx prisma migrate dev — застосувати міграцію
 -   npx prisma generate — згенерувати Prisma Client на основі схеми

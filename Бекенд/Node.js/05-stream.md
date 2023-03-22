@@ -1,4 +1,4 @@
-## Stream (потік)
+# Stream (потік)
 
 -   Дозволяє читати дані по частинам
 -   Stream є EventEmitter з фіксованою кількістю подій
@@ -8,7 +8,7 @@
     -   Duplex (до якого можна і читати та писати)
     -   Transform (який трансформує дані на льоту)
 
-### Read Stream
+## Read Stream
 
 -   Stream, з якого можна читати дані
 -   Основні події
@@ -18,7 +18,7 @@
 -   Основні методи
     -   pipe(description, options) — дозволяє перенаправити вивід у Write Stream
 
-### Write Stream
+## Write Stream
 
 -   Stream, в який можна писати дані
 -   Основні події
