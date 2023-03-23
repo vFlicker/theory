@@ -1,3 +1,6 @@
+/**
+ * O(n^2)
+ */
 const ineffectiveBanning = (shows) => {
   // починається обхід всіх шоу
   shows.forEach(show => {
@@ -17,6 +20,9 @@ const ineffectiveBanning = (shows) => {
   });
 };
 
+/**
+ * O(n)
+ */
 const effectiveBanning = (shows) => {
   const bannedShowsIDs = new Set();
 

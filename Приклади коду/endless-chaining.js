@@ -1,3 +1,24 @@
+/**
+ * Create new array on each iteration.
+ * 
+ * const enhanceApiResponseBad = (apiResponse) => {
+ *   const filteredChannels = []
+ *   const identificatorChannels = []
+ *   const modifyImagesChannels = []
+ * 
+ *   for (const channel of apiResponse.channels) {}
+ *   for (const channel of filteredChannels) {}
+ *   for (const channel of identificatorChannels) {}
+ *   for (const channel of modifyImagesChannels) {}
+ * 
+ *   return channels;
+ * }
+ */
+
+
+ for (const iterator of object) {
+      
+}
 const enhanceApiResponseBad = (apiResponse) => {
   const channels = apiResponse.channels
     .filter(filterEmptyTimelines)
@@ -9,6 +30,9 @@ const enhanceApiResponseBad = (apiResponse) => {
   return channels;
 }
 
+/**
+ * Create only one array.
+ */
 const enhanceApiResponseGood = (apiResponse) => {
   const channels = apiResponse.channels.reduce((acc, channel) => {
     if (!hasEmptyTimelines(channel.timelines)) {
