@@ -49,6 +49,6 @@ class User {
 }
 ```
 
-### Література
+## Література
 
 <a href="https://habr.com/ru/company/simbirsoft/blog/329970/">Основи CQRS</a>

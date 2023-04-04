@@ -1,4 +1,4 @@
-## «Bug-O» Нотація
+# «Bug-O» Нотація
 
 ```js
 function trySubmit() {
@@ -119,6 +119,6 @@ function FormStatus() {
 }
 ```
 
-### Література
+## Література
 
 <a href="https://overreacted.io/uk/the-bug-o-notation/">«Bug-O» Нотація</a>
