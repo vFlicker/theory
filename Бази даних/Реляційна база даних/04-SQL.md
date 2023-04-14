@@ -22,9 +22,10 @@ SQL (Structured Query Language / Мова Структурованих Запи�
 CREATE DATABASE application_data;
 
 CREATE TABLE IF NOT EXISTS Employee (
-    EmployeeId INT PRIMARY KEY,
-    FirstName text INDEX NOT NULL,
-    ProductName text UNIQUE,
+    EmployeeId serial PRIMARY KEY,
+    FirstName varchar(255) INDEX NOT NULL,
+    Email text UNIQUE,
+    EmployeePassword varchar(64) NOT NULL,
     Price numeric CHECK (Price > 0)
     Salary numeric DEFAULT 600,
 );
@@ -62,9 +63,25 @@ CREATE TABLE Product(
   ProductName text UNIQUE INDEX
 );
 
+ALTER TABLE Product ADD CONSTRAINT pkProduct PRIMARY KEY (Id);
+
 CREATE INDEX ON Employee (LastName);
 
-CREATE UNIQUE INDEX ON Product (ProductName);
+CREATE UNIQUE INDEX akProductProductName ON Product (ProductName);
+
+/* Індекси для зв'язку багато до багатьох */
+CREATE TABLE GroupUser (
+    GroupId integer NOT NULL,
+    UserId integer NOT NULL
+);
+
+ALTER TABLE GroupUser ADD CONSTRAINT pkGroupUser PRIMARY KEY (GroupId, UserId);
+
+ALTER TABLE GroupUser ADD CONSTRAINT fkGroupUserGroupId FOREIGN KEY (GroupId)
+REFERENCES SystemGroup (Id) ON DELETE CASCADE;
+
+ALTER TABLE GroupUser ADD CONSTRAINT fkGroupUserUserId FOREIGN KEY (UserId)
+REFERENCES SystemUser (Id) ON DELETE CASCADE;
 ```
 
 ### Пошук
@@ -100,9 +117,13 @@ SELECT DISTINCT name FROM users;
 -   `>` — чи є значення стовпця більшим за вказане значення
 -   `<` — чи є значення стовпця меншим за вказане значення
 -   `>`= — чи є значення стовпця більшим або рівним вказаному значенню
--   `<=` — и є значення стовпця меншим або рівним вказаному значенню
+-   `<=` — чи є значення стовпця меншим або рівним вказаному значенню
 -   `!=` або `<>` — чи не є значення стовпця рівним вказаному значенню
 -   `LIKE` — використовується для відбору даних, які відповідають вказаному шаблону. Шаблон може містити спеціальні символи % (довільна послідовність символів) та \_ (один будь-який символ)
+-   `IN` — використовується для відбору даних, які мають значення, що входять до переліку вказаних значень
+-   `IS NULL` — використовується для відбору даних, які мають значення NULL
+-   `BETWEEN` — використовується для відбору даних, які мають значення, що знаходяться в діапазоні між двома вказаними значеннями
+-   `AND` — використовується для комбінування двох або більше умов. Він повертає результат тільки тоді, коли обидві умови є істинними
 
 ```sql
 SELECT Id, UserName, Title, Salary FROM Info
@@ -181,8 +202,7 @@ VALUES (1, 'Ноутбук'),
 Відбувається за допомогою ключового слова `UPDATE`.
 
 ```sql
-UPDATE Product
-SET Price = 15000
+UPDATE Product SET Price = 15000
 WHERE ProductId = 1;
 ```
 
@@ -200,3 +220,9 @@ WHERE ProductId = 2;
 
 Об'єднання даних з двох або більше таблиць за певними критеріями, наприклад, по спільному стовпцю.
 Відбувається за допомогою ключових слів: `JOIN`, `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN` і `FULL JOIN`.
+
+```sql
+SELECT comments.id, email, content FROM comments
+JOIN users
+ON comments.user_id = user.id
+```
