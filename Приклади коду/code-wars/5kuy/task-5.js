@@ -2,12 +2,11 @@
 // const bracketsClose = new Set([')', ']', '}']);
 
 // const isNextCharNumber = (char) => Number(char);
+// const isNextCharBracket = (char) => bracketsOpen.has(char) || bracketsClose.has(char);
 
 // const isNextCharLower = (char) => {
 //   const isNextBigLetter = char.toUpperCase() === char;
-//   const isNextCharBracket = bracketsOpen.has(char) || bracketsClose.has(char);
-
-//   return !isNextCharNumber(char) && !isNextBigLetter && !isNextCharBracket;
+//   return !isNextCharNumber(char) && !isNextBigLetter && !isNextCharBracket(char);
 // };
 
 // const transformData = (string) => {
@@ -53,18 +52,15 @@
 
 //   for (let index = 0; index < array.length - 1; index++) {
 //     const char = array[index];
-//     if (bracketsOpen.has(char) || bracketsClose.has(char) || Number.isInteger(char)) {
-//       continue
-//     }
+
+//     if (isNextCharBracket(char) || Number.isInteger(char)) continue;
 
 //     const idx = result.findIndex((obj) => {
 //       const [key] = Object.keys(obj);
 //       return key === char;
 //     });
 
-//     if (idx === -1) {
-//       result.push({[char]: 0});
-//     }
+//     if (idx === -1) result.push({[char]: 0});
 //   }
 
 //   for (let index = array.length - 1; index >= 0; index--) {
@@ -81,9 +77,8 @@
 //       }
 //     }
 
-//     if (bracketsClose.has(char)) {
-//       continue;
-//     };
+//     if (bracketsClose.has(char)) continue;
+
 
 //     if (bracketsOpen.has(char)) {
 //       longKoeffs.pop();
@@ -136,8 +131,6 @@ function parseMolecule(formula) {
       // add element count to top of stack
       const top = stack[stack.length - 1];
       top[element] = (top[element] || 0) + count;
-
-      console.log(top);
     } else if (formula[i] === "(" || formula[i] === "[" || formula[i] === "{") {
       // push new object to stack
       stack.push({});

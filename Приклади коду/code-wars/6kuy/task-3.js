@@ -1,36 +1,36 @@
 const getIsEven = (integer) => integer % 2 === 0;
 
-// const findOutlier = (integers) => {
-//   const [firstInt, secondInt, thirdInt] = integers;
+const findOutlier = (integers) => {
+  const [firstInt, secondInt, thirdInt] = integers;
 
-//   /** 
-//    * Просто використовуй slice integers.slice(0, 3)
-//    * замість цього:
-//    */
-//   const isFirstIntEven = getIsEven(firstInt);
-//   const isSecondIntEven = getIsEven(secondInt);
-//   const isThirdIntEven = getIsEven(thirdInt);
+  /** 
+   * Просто використовуй slice integers.slice(0, 3)
+   * замість цього:
+   */
+  const isFirstIntEven = getIsEven(firstInt);
+  const isSecondIntEven = getIsEven(secondInt);
+  const isThirdIntEven = getIsEven(thirdInt);
 
-//   const isFindEven = [
-//     isFirstIntEven,
-//     isSecondIntEven,
-//     isThirdIntEven
-//   ].filter((item) => item === true).length >= 2;
+  const isFindEven = [
+    isFirstIntEven,
+    isSecondIntEven,
+    isThirdIntEven
+  ].filter((item) => item === true).length >= 2;
 
-//   for (const integer of integers) {
-//     const currentInteger = getIsEven(integer);
-//     if (currentInteger !== isFindEven) return integer;
-//   }
-// };
+  for (const integer of integers) {
+    const currentInteger = getIsEven(integer);
+    if (currentInteger !== isFindEven) return integer;
+  }
+};
 
-// const findOutlier = (integers) => {
-//   const firstThreeIntegers = integers.slice(0, 3);
-//   const isFindEven = firstThreeIntegers.filter((item) => item === true).length >= 2;
+const findOutlier = (integers) => {
+  const firstThreeIntegers = integers.slice(0, 3);
+  const isFindEven = firstThreeIntegers.filter((item) => item === true).length >= 2;
 
-//   for (const integer of integers) {
-//     if (getIsEven(integer) !== isFindEven) return integer;
-//   }
-// };
+  for (const integer of integers) {
+    if (getIsEven(integer) !== isFindEven) return integer;
+  }
+};
 
 const findOutlier = (integers) => {
   let evenCount = 0;

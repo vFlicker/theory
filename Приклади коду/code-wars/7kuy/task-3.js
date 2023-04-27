@@ -7,12 +7,8 @@
 //   for (const parsedNumber of parsedNumbers) {
 //     const number = Number(parsedNumber);
 
-//     console.log({min, max});
-
 //     if (min > number) min = number;
 //     if (max < number) max = number;
-
-//     console.log({min, max});
 //   }
 
 //   return `${max} ${min}`;
