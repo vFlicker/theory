@@ -8,7 +8,7 @@ const array = [3, 10, 1, 4, 2, 7, 5, 8, 9, 6];
 let iterationsNumber = 0;
 
 const bubbleSort = (array) => {
-    const length = array.length;
+    const length = array.length - 1;
 
     for (let i = 0; i < length; i++) {
         for (let j = 0; j < length - i - 1; j++) {
