@@ -84,6 +84,5 @@ const iqTest = (string) => {
   return eventCount > 1 ? odd : even;
 }
 
-
 console.log(iqTest("2 4 7 8 10"));
 console.log(iqTest("1 2 1 1"));
