@@ -4,7 +4,6 @@
 Складність алгоритму за пам'яттю — O(1)
 
 ```js
-const array = [3, 10, 1, 4, 2, 7, 5, 8, 9, 6];
 let iterationsNumber = 0;
 
 const bubbleSort = (array) => {
@@ -28,6 +27,7 @@ const bubbleSort = (array) => {
     return array;
 };
 
+const array = [3, 10, 1, 4, 2, 7, 5, 8, 9, 6];
 console.log(bubbleSort(array));
 console.log(`Number of iterations: ${iterationsNumber}`);
 ```
