@@ -184,7 +184,7 @@ SELECT Id, DepartmentName, UserName, Salary, Age FROM Info
 WHERE DepartmentName = 'Sales' ORDER BY Salary, Age DESC;
 ```
 
-### Вставка
+### Запис
 
 Додавання нових даних до таблиці.
 Відбувається за допомогою ключового слова `INSERT`.
