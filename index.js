@@ -334,4 +334,4 @@ const data = [
     "leaguePoints": 931
   },
 ]
-console.log(topThree(data, 3)); // 1476, 1432, 1130
+// console.log(topThree(data, 3)); // 1476, 1432, 1130
