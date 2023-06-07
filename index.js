@@ -137,201 +137,131 @@
 //   ],
 // ]));
 
+const MINIMUM_TIMEOUT = 5000;
 
-const random = (min, max) => {
-  // Інтервал, в якому можуть бути наші числа
-  const interval = max - min;
-
-  // Пошук випадкового числа починатиметься не з нуля, а з min
-  const shift = min;
-
-  return Math.round(Math.random() * interval + shift);
-};
-
-// Так як у підрозбиттях після рекурсивного виклику сортування
-// ми будемо працювати не з цілим масивом а його частинами,
-// відразу зробимо додаткові параметри для їх визначення
-const partition = (array, left, right) => {
-  // Знаходимо значення, навколо якого розміщуватимемо елементи
-  const { leaguePoints: pivot } = array[random(left, right)];
-
-  // будемо сходитися з країв у центр, доки не переглянемо
-  // всі елементи
-  while (left < right) {
-      // Поки зліва зустрічаються лише числа менше поворотного
-      while (array[left].leaguePoints < pivot) {
-          // рухаємо лівий покажчик праворуч,
-          // адже з цими числами нічого робити не треба
-          left++;
-      }
-
-      // Поки справа зустрічаються тільки числа більше поворотного
-      while (array[right].leaguePoints > pivot) {
-          // рухаємо правий покажчик вліво,
-          // адже з цими числами нічого робити не треба
-          right--;
-      }
-
-      // Як тільки обидва вказівники вказують на елементи,
-      // які мають бути в протилежних частинах,
-      // і ми все ще не зійшлися до центру
-      if (left <= right) {
-          // міняємо їх місцями і не забуваємо рухати обидва вказівники,
-          // тому що тепер обидва числа на своєму місці
-          [array[left], array[right]] = [array[right], array[left]];
-          left++;
-          right--;
-      }
+class MyCache {
+  constructor(size) {
+    this.size = size;
+    this._map = new Map();
   }
 
-  // Повертаємо місце, де виявився елемент,
-  // що дорівнює нашій точці повороту
-  return left;
-};
-
-// Просте сортування, яке може працювати тільки з масивами з трьох
-// і менш елементів, яка через ліміт на вхідні дані працює за O(1)
-const sortThree = (array) => {
-  // Якщо масив порожній, його і повернемо
-  if (!array.length) {
-    return array;
+  get(key) {
+    return this._map.get(key);
   }
 
-  // Інакше покладемо перший елемент у відсортований масив
-  const sorted = [array[0]];
-
-  // Якщо у масиві є друге число, то вставимо його у потрібне місце
-  // у нашому відсортованому
-  if (array[1]) {
-    if (array[1].leaguePoints > array[0].leaguePoints) {
-      sorted.push(array[1]);
-    } else {
-      sorted.unshift(array[1]);
+  set(key, value) {
+    if (this._map.size === this.size) {
+      this.delete(this.#getFirst());
     }
+
+    this._map.set(key, value);
   }
 
-  // Якщо масиві є і третє число, то також вставимо і його
-  if (array[2]) {
-    // Або на початок, якщо він менший за початок відсортованого масиву
-    if (array[2].leaguePoints < sorted[0].leaguePoints) {
-      sorted.unshift(array[2]);
-    // Або в кінці, якщо він більше початку відсортованого масиву
-    } else if (array[2].leaguePoints > sorted[1].leaguePoints) {
-      sorted.push(array[2]);
-    // Або в середину в іншому випадку
-    } else {
-      sorted.splice(1, 0, array[2]);
-    }
+  delete(key) {
+    this._map.delete(key);
   }
 
-  return sorted.reverse();
+  #getFirst() {
+    return this._map.keys().next().value;
+  }
 }
 
-const topThree = (data) => {
-  if (data.length <= 3) {
-    return sortThree(data);
-  }
+// 0	Cannot read property 'score' of undefined x2
+// 0	TypeError: 'undefined' is not an object x3
+// 14	Uncaught RangeError: Maximum call stack size exceeded
+// 15	Cannot read property 'score' of undefined
+// 18	ReferenceError: event is not defined x2
+// 21	Cannot read property 'score' of undefined
 
-  // Ми дуже хочемо, щоб наша точка повороту виявилася
-  // рівно на початку трійці, яку нам потрібно повернути,
-  // щоб не сортувати зайвих підмасивів
-  const desiredPivot = data.length - 3;
+const getLogger = () => {
+  const cache = new MyCache(100);
 
-  // Будемо зберігати останню точку повороту, яку нам дав поділ
-  let pivot = partition(data, 0, data.length - 1);
+  const logger = (errors) => {
+    for (const currentError of errors) {
+      const cachedLogs = cache.get(currentError.message);
+      const error = { ...currentError, count: 1, prefix: currentError.timestamp };
 
-  // Ще збережемо мінімальну точку повороту, починаючи з якої
-  // нам буде нецікаво, що відбувається ліворуч — нам все-таки треба
-  // відсортувати лише праву частину масиву. При тому,
-  // якщо ми відразу перескочили потрібну нам точку повороту,
-  // то нам таки доведеться подивитися на ліві елементи.
-  let minimalPivot = pivot > desiredPivot ? 0 : pivot;
+      if (cachedLogs) {
+        const prevError = cachedLogs[cachedLogs.length - 1];
 
-  // Поки точка повороту не в тому місці, яке нам необхідно,
-  // намагаємось зрушити її туди.
-  while (pivot !== desiredPivot) {
-    // Якщо ми правіше, ніж потрібно, значить треба зрушити ліворуч
-    if (pivot > desiredPivot) {
-      // Ми знаємо, з якого елемента нам сортування нецікаве,
-      // тому там сортувати і не будемо
-      pivot = partition(data, minimalPivot, pivot);
-    // А інакше рухаємося вправо
-    } else {
-      pivot = partition(data, minimalPivot, data.length - 1);
+        if (currentError.timestamp - prevError.timestamp > 5) {
+          cachedLogs.push(error);
+        } else {
+          prevError.timestamp = currentError.timestamp;
+          prevError.count = prevError.count + 1;
+        }
+      } else {
+        cache.set(currentError.message, [error]);
+      }
+    };
+
+    const result = [];
+  
+    for (const currentError of errors) {
+      const cachedLogs = cache.get(currentError.message);
+
+      const foundLog = cachedLogs.find((cachedError) => {
+        return cachedError.prefix === currentError.timestamp;
+      });
+
+      if (foundLog) {
+        const { message, count, prefix } = foundLog;
+
+        const item = count > 1
+          ? `${prefix} ${message} x${count}`
+          : `${prefix} ${message}`;
+
+        result.push(item)
+      }
     }
 
-    // Обновимо мінімально цікавий нам підмасив
-    // за аналогією з його ініціалізацією
-    minimalPivot = pivot > desiredPivot ? minimalPivot : pivot;
-  }
+    return result;
+  };
 
-  return sortThree(data.slice(-3));
-}
+  return logger;
+};
 
-const data = [
+const errors = [
   {
-    "login": "DreamLess",
-    "leaguePoints": 956
+    "message": "Cannot read property 'score' of undefined",
+    "timestamp": 0,
   },
   {
-    "login": "cavernous",
-    "leaguePoints": 1056
+    "message": "TypeError: 'undefined' is not an object",
+    "timestamp": 0,
   },
   {
-    "login": "SaiyanBroadway",
-    "leaguePoints": 1432
+    "message": "Cannot read property 'score' of undefined",
+    "timestamp": 3,
   },
   {
-    "login": "BlondiePlanet",
-    "leaguePoints": 1045
+    "message": "TypeError: 'undefined' is not an object",
+    "timestamp": 5,
   },
   {
-    "login": "Mountaintrid",
-    "leaguePoints": 1130
+    "message": "TypeError: 'undefined' is not an object",
+    "timestamp": 10,
   },
   {
-    "login": "cathead",
-    "leaguePoints": 930
+    "message": "Uncaught RangeError: Maximum call stack size exceeded",
+    "timestamp": 14,
   },
   {
-    "login": "rstrazir",
-    "leaguePoints": 356
+    "message": "Cannot read property 'score' of undefined",
+    "timestamp": 15,
   },
   {
-    "login": "stypeano",
-    "leaguePoints": 4
+    "message": "ReferenceError: event is not defined",
+    "timestamp": 18,
   },
   {
-    "login": "CzarStories",
-    "leaguePoints": 568
+    "message": "Cannot read property 'score' of undefined",
+    "timestamp": 21,
   },
   {
-    "login": "ConspiracyLil",
-    "leaguePoints": 18
+    "message": "ReferenceError: event is not defined",
+    "timestamp": 22,
   },
-  {
-    "login": "GottaSaiyan",
-    "leaguePoints": 931
-  },
-  {
-    "login": "Goldenelox",
-    "leaguePoints": 932
-  },
-  {
-    "login": "Breakingbing",
-    "leaguePoints": 64
-  },
-  {
-    "login": "Rectionom",
-    "leaguePoints": 42
-  },
-  {
-    "login": "BoostScooby",
-    "leaguePoints": 1476
-  },
-  {
-    "login": "JoshChase",
-    "leaguePoints": 931
-  },
-]
-// console.log(topThree(data, 3)); // 1476, 1432, 1130
+];
+const logger = getLogger();
+console.log(logger(errors));
