@@ -51,9 +51,7 @@ const validate = (_string) => {
   const stack = [];
 
   for (const character of string) {
-    if (openBrackets.has(character)) {
-      stack.push(character);
-    }
+    if (openBrackets.has(character)) stack.push(character);
 
     if (closeBrackets.has(character)) {
       const open = stack.pop();

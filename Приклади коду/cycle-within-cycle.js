@@ -3,20 +3,18 @@
  */
 const ineffectiveBanning = (shows) => {
   // починається обхід всіх шоу
-  shows.forEach(show => {
+  shows.forEach((show) => {
     // береться ID кожного
     const { id: showID } = show;
 
     // запускається обхід заборонених шоу
-    bannedShows.forEach(bannedShow => {
+    bannedShows.forEach((bannedShow) => {
       // тепер беремо ID кожного заблокованих
       const { id: bannedShowID } = bannedShow;
 
       // порівнюємо ID і якщо збіг — помічаємо шоу як заблоковане
-      if (showID === bannedShowID) {
-        show.isBanned = true;
-      	}
-     });
+      if (showID === bannedShowID) show.isBanned = true;
+    });
   });
 };
 
@@ -25,7 +23,6 @@ const ineffectiveBanning = (shows) => {
  */
 const effectiveBanning = (shows) => {
   const bannedShowsIDs = new Set();
-
 
   // наповнили Set заблоковане ID
   bannedShows.forEach(({ id }) => bannedShowsIDs.add(id));

@@ -103,7 +103,6 @@ const getCode2 = (lots) => {
     }
   }
 
-
   return codes;
 }
 

@@ -15,10 +15,6 @@
  * }
  */
 
-
- for (const iterator of object) {
-      
-}
 const enhanceApiResponseBad = (apiResponse) => {
   const channels = apiResponse.channels
     .filter(filterEmptyTimelines)
