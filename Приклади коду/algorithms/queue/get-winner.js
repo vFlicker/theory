@@ -19,23 +19,23 @@ const getWinner = (logins) => {
 };
 
 const getWinnerQueue = (logins) => {
-  const step = randomStep(1, 3);
   const eliminated = [];
 
   while (logins.length !== 1) {
+    const step = randomStep(1, 3);
     let remove = step;
 
-    while (remove) {
-      const first = logins.shift();
+    while (remove !== 0) {
+      const login = logins.shift();
 
-      logins.push(first);
+      logins.push(login);
 
-      remove--;
+      remove -= 1;
     }
 
     const login = logins.shift();
 
-    eliminated.push({ login, step })
+    eliminated.push({ login, step });
   }
 
   return eliminated;
