@@ -55,7 +55,7 @@ const myLogger = (logs) => {
  * 18	ReferenceError: event is not defined x2
  * 21	Cannot read property 'score' of undefined
  */
- const rateLimit = (logs) => {
+const rateLimit = (logs) => {
   const encountered = new Map();
   const rateLimited = [];
 

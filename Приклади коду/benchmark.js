@@ -1,4 +1,4 @@
-const benchmark = (callback) => {
+function benchmark(callback) {
   const start = performance.now();
 
   const result = callback();

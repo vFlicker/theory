@@ -1,5 +1,3 @@
-// https://learn.javascript.ru/call-apply-decorators
-
 const increment = (value) => {
   console.log('Function increment called');
   return value + 1;
