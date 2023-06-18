@@ -8,27 +8,20 @@
   користувача.
 */
 
-// const findBanners = (banners, userWidth) => {
-//   for (const firstBanner of banners) {
-//     for (const secondBanner of banners) {
-//       if (firstBanner.width + secondBanner.width === userWidth) {
-//         return [firstBanner, secondBanner];
-//       }
-//     }
-//   }
-// }
-
+/**
+ *
+ * Складність за часом — `О(n)`
+ * Складність за пам'яттю — `О(1)`
+ */
 const findBanners = (banners, userWidth) => {
-  const sortedBanners = [...banners].sort((a, b) => a.width - b.width);
-
   let leftPointer = 0;
-  let rightPointer = sortedBanners.length - 1;
+  let rightPointer = banners.length - 1;
 
   while (leftPointer < rightPointer) {
-    const bannersWidth = sortedBanners[leftPointer].width + sortedBanners[rightPointer].width;
+    const bannersWidth = banners[leftPointer] + banners[rightPointer];
 
     if (bannersWidth === userWidth) {
-      return [sortedBanners[leftPointer], sortedBanners[rightPointer]];
+      return [banners[leftPointer], banners[rightPointer]];
     }
 
     if (bannersWidth > userWidth) {
@@ -39,15 +32,6 @@ const findBanners = (banners, userWidth) => {
   }
 }
 
-const banners = [
-  { width: 100 },
-  { width: 200 },
-  { width: 150 },
-  { width: 300 },
-  { width: 120 },
-];
-
+const banners = [40, 50, 100, 300, 700];
 const userWidth = 350;
-
 console.log(findBanners(banners, userWidth));
-console.log(banners);

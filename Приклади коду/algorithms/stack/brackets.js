@@ -1,41 +1,11 @@
-// const validate = (_string) => {
-//   const string = _string.trim();
-//   let parenthesisCount = 0;
+/*
+  Провалідувати, що це дужки коректно розставлені.
+*/
 
-//   for (const character of string) {
-//     if (character === '(') parenthesisCount++;
-
-//     if (character === ')') {
-//       if (parenthesisCount === 0) return false;
-//       parenthesisCount--;
-//     }
-//   }
-
-//   return parenthesisCount === 0;
-// };
-
-// const validate = (_string) => {
-//   const bracket = {
-//     '(': ')',
-//     '{': '}',
-//     '[': ']',
-//   }
-
-//   const string = _string.trim();
-//   const stringLength = string.length;
-
-//   if (stringLength % 2 !== 0) return false;
-
-//   for (let index = 0; index < stringLength / 2; index++) {
-//     const leftElement = string[index];
-//     const rightElement = string[stringLength - 1 - index];
-    
-//     if (bracket[leftElement] !== rightElement) return false;
-//   }
-
-//   return true;
-// };
-
+/**
+ * За часом — `О(n)`
+ * За пам'яттю — `О(n)`
+ */
 const validate = (_string) => {
   const string = _string.trim();
 
