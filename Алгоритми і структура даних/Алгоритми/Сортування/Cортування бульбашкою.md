@@ -8,8 +8,6 @@
 **Приклад**
 
 ```js
-let iterationsNumber = 0;
-
 const bubbleSort = (array) => {
     const length = array.length - 1;
 
@@ -23,8 +21,6 @@ const bubbleSort = (array) => {
                 array[j] = next;
                 array[j + 1] = current;
             }
-
-            iterationsNumber += 1;
         }
     }
 
@@ -33,5 +29,4 @@ const bubbleSort = (array) => {
 
 const array = [3, 10, 1, 4, 2, 7, 5, 8, 9, 6];
 console.log(bubbleSort(array));
-console.log(`Number of iterations: ${iterationsNumber}`);
 ```
