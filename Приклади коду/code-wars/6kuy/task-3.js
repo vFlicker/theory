@@ -54,6 +54,10 @@ console.log(findOutlier([2, 4, 0, 100, 4, 11, 2602, 36, 34, 32, 30, 102, 1000, 6
 console.log(findOutlier([160, 3, 1719, 19, 11, 13, -21])); // 160
 
 
+/**
+ * Зі списку чисел знайти те, що відрізняється за парністю
+ * від інших, і повернути його позицію.
+ */
 const iqTest = (numbers) => {
   const remainders = numbers.split(" ").map(x => x % 2);
   const sum = remainders.reduce((a, b) => a + b);
