@@ -1,43 +1,46 @@
 /*
-  // top: 0, left: 0, bottom: 3, right: 3
-  [
+  Початкові координати: { top: 0, left: 0, bottom: 3, right: 3 }
+  Матриця: [
     [ 4, 356,  930, 1056]
     [18, 568,  931, 1130]
     [42, 931,  956, 1045]
     [64, 932, 1432, 1476]
   ]
 
-  // top: 2, left: 0, bottom: 3, right: 1
-  const topRightCoords = [
+  Початкові координати: { top: 2, left: 0, bottom: 3, right: 1 }
+  Матриця: const topRightCoords = [
     [930, 1056]
     [931, 1130]
   ]
 
-  // top: 0, left: 2, bottom: 1, right: 3
-  const bottomLeftCoords = [
+  Початкові координати: { top: 0, left: 2, bottom: 1, right: 3 }
+  Матриця: const bottomLeftCoords = [
     [42, 931]
     [64, 932]
   ]
 
-  // top: 2, left: 2, bottom: 3, right: 3
-  const bottomRightCoords = [
+  Початкові координати: { top: 2, left: 2, bottom: 3, right: 3 }
+  Матриця: const bottomRightCoords = [
     [ 956, 1045]
     [1432, 1476]
   ]
 
-  // top: 0, left: 0, bottom: 1, right: 1
-  const topLeftCoords = [
+  Початкові координати: { top: 0, left: 0, bottom: 1, right: 1 }
+  Матриця: const topLeftCoords = [
     [ 3, 356]
     [18, 568]
   ]
 */
+
+/**
+ * За часом — `О(log(n))`
+ * За пам'яттю — `О(log(n))`
+ */
 const searchSubtask = (leaderBoard, leaguePoints, coords) => {
   const { topBorder, leftBorder, bottomBorder, rightBorder } = coords;
 
   // Якщо межі зійшлися - нічого не знайшлося
-  if (leftBorder > rightBorder || topBorder > bottomBorder) {
-    return null;
-  }
+  if (leftBorder > rightBorder || topBorder > bottomBorder) return null;
 
   // Якщо межі зійшлися до єдиного елементу, то перевіряємо, чи він підходить нам
   if (leftBorder === rightBorder && topBorder === bottomBorder) {
@@ -56,7 +59,7 @@ const searchSubtask = (leaderBoard, leaguePoints, coords) => {
   const middleY = Math.floor((topBorder + bottomBorder) / 2);
   const middleX = Math.floor((leftBorder + rightBorder) / 2);
   const candidate = leaderBoard[middleY][middleX];
-  const { leaguePoints: candidateLeaguePoints } = candidate;
+  const candidateLeaguePoints = candidate.leaguePoints;
 
   const topRightCoords = {
     topBorder,
@@ -93,17 +96,15 @@ const searchSubtask = (leaderBoard, leaguePoints, coords) => {
       || searchSubtask(leaderBoard, leaguePoints, bottomRightCoords);
   }
 
-  // якщо менше
+  // Якщо нам потрібно знайти частини, де кількість очок менша, ніж посередині
   return searchSubtask(leaderBoard, leaguePoints, topRightCoords)
     ||searchSubtask(leaderBoard, leaguePoints, bottomLeftCoords)
     || searchSubtask(leaderBoard, leaguePoints, topLeftCoords);
-}
+};
 
 const searchScore = (leaderBoard, leaguePoints) => {
   // Якщо матриця порожня, повертаємо null
-  if (!(leaderBoard.length && leaderBoard[0].length)) {
-    return null;
-  }
+  if (!(leaderBoard.length && leaderBoard[0].length)) return null;
 
   const bottomBorder = leaderBoard.length - 1;
   const rightBorder = leaderBoard[0].length - 1;
@@ -117,7 +118,7 @@ const searchScore = (leaderBoard, leaguePoints) => {
   }
 
   return searchSubtask(leaderBoard, leaguePoints, coords);
-}
+};
 
 const data = [
   [
@@ -209,8 +210,8 @@ const data = [
     }
   ]
 ];
+
 console.log(searchScore(data, 4)); // { "guild": "seabass", "placement": 4 }
 console.log(searchScore(data, 14)); // null
 console.log(searchScore(data, 568)); // { "guild": "goldfish", "placement": 3 }
 console.log(searchScore(data, 1476)); // { "guild": "bream", "placement": 1 }
-
