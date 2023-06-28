@@ -9,10 +9,8 @@
 
 ```js
 const bubbleSort = (array) => {
-    const length = array.length - 1;
-
-    for (let i = 0; i < length; i++) {
-        for (let j = 0; j < length - i - 1; j++) {
+    for (let i = 0; i < array.length - 1; i++) {
+        for (let j = 0; j < array.length - 1 - i; j++) {
             const current = array[j]; // поточний елемент
             const next = array[j + 1]; // наступний елемент
 

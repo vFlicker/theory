@@ -18,252 +18,102 @@
 -   Додавання/видалення елементів — у зв'язку з динамічним розподілом пам'яті швидкість висока
 -   Структура — однонаправлений, двонаправлений чи циклічний
 
-## Методи
-
--   size — повернути кількість вузлів
--   head — повернути перший елемент (head)
--   isEmpty — перевірити, чи є елементи у списку
--   add — додати елемент у кінець (tail)
--   remove — видалити кілька вузлів
--   indexOf — повернути індекс вузла
--   elementAt — повернути вузол за індексом
--   addAt — вставити вузол у певне місце (за індексом)
--   removeAt — видалити певний вузол (за індексом)
-
 **Приклад 1**
 
 ```js
-/**
- * Вузол.
- */
-class MyNode {
-    /**
-     * Дані.
-     */
-    element = null;
-
-    /**
-     * Покажчик на наступний вузол.
-     */
-    next = null;
-
-    constructor(element) {
-        this.element = element;
-    }
-}
-
-class LinkedList {
-    #head = null;
-    #length = 0;
-
-    get size() {
-        return this.#length;
-    }
-
-    get head() {
-        return this.#head;
-    }
-
-    get isEmpty() {
-        return this.#length === 0;
-    }
-
-    add(element) {
-        const node = new MyNode(element);
-
-        if (!this.#head) {
-            this.#head = node;
-        } else {
-            let currentNode = this.#head;
-
-            while (currentNode.next) {
-                currentNode = currentNode.next;
-            }
-
-            currentNode.next = node;
-        }
-
-        this.#length += 1;
-    }
-
-    remove(element) {
-        let currentNode = this.#head;
-        let previousNode = null;
-
-        if (currentNode.element === element) {
-            this.#head = currentNode.next;
-        } else {
-            console.log({ previousNode, currentNode });
-            while (currentNode.element !== element) {
-                previousNode = currentNode;
-                currentNode = currentNode.next;
-            }
-
-            previousNode.next = currentNode.next;
-        }
-
-        this.#length -= 1;
-    }
-
-    indexOf(element) {
-        let currentNode = this.#head;
-        let index = -1;
-
-        while (currentNode) {
-            index += 1;
-
-            if (currentNode.element === element) return index;
-
-            currentNode = currentNode.next;
-        }
-
-        return -1;
-    }
-
-    elementAt(index) {
-        let currentNode = this.#head;
-        let count = 0;
-
-        if (index >= this.#length) return;
-
-        while (count < index) {
-            count += 1;
-            currentNode = currentNode.next;
-        }
-
-        return currentNode.element;
-    }
-
-    addAt(index, element) {
-        let node = new MyNode(element);
-        let currentNode = this.#head;
-        let previousNode = null;
-        let currentIndex = 0;
-
-        if (index >= this.#length) return false;
-
-        if (index === 0) {
-            node.next = currentNode;
-            this.#head = node;
-        } else {
-            while (currentIndex < index) {
-                currentIndex += 1;
-                previousNode = currentNode;
-                currentNode = currentNode.next;
-            }
-
-            node.next = currentNode;
-            previousNode.next = node;
-        }
-    }
-
-    removeAt(index) {
-        let currentNode = this.#head;
-        let previousNode = null;
-        let currentIndex = 0;
-
-        if (index > this.#length) return false;
-
-        if (index === 0) {
-            this.#head = currentNode.next;
-        } else {
-            while (currentIndex < index) {
-                currentIndex += 1;
-                previousNode = currentNode;
-                currentNode = currentNode.next;
-            }
-
-            previousNode.next = currentNode.next;
-        }
-
-        this.#length -= 1;
-        return currentNode.element;
-    }
-}
-```
-
-**Приклад 2**
-
-```js
 class Node {
-    constructor(data, next = null) {
-        this.data = data;
-        this.next = next;
-    }
+  constructor(value, next = null) {
+      this.value = value;
+      this.next = next;
+  }
 }
 
 class LinkedList {
-    #head = null;
-    #tail = null;
+  constructor() {
+    this.head = null;
+    this.length = 0;
+  }
 
-    append(data) {
-        const node = new Node(data);
+  add(value) {
+    const newNode = new Node(value);
 
-        if (this.#tail) this.#tail.next = node;
+    // if (this.tail) {
+    //   this.tail.next = newNode;
+    // }
 
-        if (!this.#head) this.#head = node;
+    if (this.head === null) {
+      this.head = newNode;
+    } else {
+      let currentNode = this.head;
 
-        this.#tail = node;
+      while (currentNode.next !== null) {
+        currentNode = currentNode.next;
+      }
+
+      currentNode.next = newNode;
     }
 
-    prepend(data) {
-        const node = new Node(data, this.#head);
+    this.length++;
+  }
 
-        this.#head = node;
+  prepend(value) {
+    const newNode = new Node(value, this.head);
+    this.head = newNode;
+    this.length++;
+  }
 
-        if (!this.#tail) this.#tail = node;
+  get(value) {
+    let currentNode = this.head;
+
+    while (currentNode !== null) {
+      if (currentNode.value === value) {
+        return currentNode;
+      }
+
+      currentNode = currentNode.next;
     }
 
-    insertAfter(after, data) {
-        const found = this.find(after);
+    return null;
+  }
 
-        if (!found) return;
+  has(value) {
+    return this.get(value) !== null;
+  }
 
-        found.next = new Node(data, found.next);
+  delete(value) {
+    if (this.head === null) {
+      return;
     }
 
-    find(data) {
-        if (!this.#head) return;
-
-        let current = this.#head;
-
-        while (current) {
-            if (current.data === data) return current;
-            current = current.next;
-        }
+    if (this.head.value === value) {
+      this.head = this.head.next;
+      this.length--;
+      return;
     }
 
-    toArray() {
-        const output = [];
-        let current = this.#head;
+    let currentNode = this.head;
 
-        while (current) {
-            output.push(current);
-            current = current.next;
-        }
+    while (currentNode.next !== null) {
+      if (currentNode.next.value === value) {
+        currentNode.next = currentNode.next.next;
+        this.length--;
+        return;
+      }
 
-        return output;
+      currentNode = currentNode.next;
+    }
+  }
+
+  values() {
+    const values = [];
+    let currentNode = this.head;
+
+    while (currentNode !== null) {
+      values.push(currentNode.value);
+      currentNode = currentNode.next;
     }
 
-    remove(data) {
-        if (!this.#head) return;
-
-        while (this.#head && this.#head.data === data) {
-            this.#head = this.#head.next;
-        }
-
-        let current = this.#head;
-
-        while (current.next) {
-            if (current.next.data === data) {
-                current.next = current.next.next;
-                return;
-            }
-
-            current = current.next;
-        }
-
-        if (this.#tail.data === data) this.#tail = current;
-    }
+    return values;
+  }
 }
 ```
