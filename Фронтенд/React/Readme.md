@@ -27,35 +27,3 @@ StrictMode допомагає забезпечити якість та покр�
 ## Single Page Application (односторінкова програма)
 
 Single Page Application (SPA) — це веб-додаток, який не використовує традиційний метод повного перезавантаження сторінок при взаємодії з користувачем. Замість цього, SPA отримує нові дані з веб-сервера і оновлює лише частину поточної веб-сторінки, забезпечуючи більш плавну та швидку взаємодію з користувачем. Одна з переваг SPA — це можливість використовувати один сервер як API для різних клієнтських пристроїв, таких як веб-сайт, мобільний додаток тощо.
-
-## Література
-
-### Хуки
-
-<a href="https://overreacted.io/a-complete-guide-to-useeffect/">Повний посібник з useEffect (eng)</a>
-
-<a href="https://www.robinwieruch.de/react-hooks-fetch-data/">How to fetch data with React Hooks</a>
-
-<a href="https://dmitripavlutin.com/react-context-and-usecontext/">A Guide to React Context</a>
-
-### Портали
-
-<a href="https://blog.logrocket.com/build-modal-with-react-portals/">Building a modal in React with React Portals</a>
-
-### Рендеринг
-
-<a href="https://blog.isquaredsoftware.com/2020/05/blogged-answers-a-mostly-complete-guide-to-react-rendering-behavior/">Blogged Answers: A (Mostly) Complete Guide to React Rendering Behavior</a>
-
-### React TypeScript
-
-<a href="https://react-typescript-cheatsheet.netlify.app/docs/basic/setup">React TypeScript</a>
-
-<a href="https://fettblog.eu/typescript-react-why-i-dont-use-react-fc/">Why I don't use React.FC</a>
-
-### Архітектура
-
-<a href="https://www.freecodecamp.org/news/scaling-your-redux-app-with-ducks-6115955638be/">Scaling your Redux App with ducks</a>
-
-### Оптимізації
-
-<a href="https://www.youtube.com/watch?v=5pIUicKWyrQ">Оптимізації</a>

@@ -1,20 +1,24 @@
 # Redux
 
-Бібліотека (state менеджер), що реалізує патерн <a href='/Архитектура/Патерни/Архітектурні/Flux.md'>Flux</a>
+Redux є бібліотекою для керування станом додатків, яка реалізує патерн <a href='/Архитектура/Патерни/Архітектурні/Flux.md'>Flux</a>.
 
--   Вирішує проблему керування станом у застосуноку
--   Пропонує зберігати state в одному «глобальному» об'єкті (single source of truth)
--   Односпрямована синхронізація зі сховища в view через підписку
--   Зворотна синхронізація View-Store працює через Action
--   Сховище пов'язане з компонентами не безпосередньо, а через HOC connect або хуки `useSelector` та `useDispatch`
--   Як UI може використовуватись будь-яка бібліотека або фреймворк
--   Вводить нову сутність — reducer
+<img src="../_images/redux.png" width="600" />
+
+Основні особливості та концепції Redux:
+
+-   Розв'язує проблему керування станом в додатку, забезпечуючи одну джерело правди (single source of truth) для зберігання стану.
+-   Забезпечує односпрямовану синхронізацію зі сховищем до представлення через підписку.
+-   Взаємодія між View і Store відбувається за допомогою Action.
+-   Сховище (Store) пов'язане з компонентами не безпосередньо, а за допомогою HOC (Higher Order Components) `connect` або хуків `useSelector` та `useDispatch`.
+-   Може бути використана будь-яка бібліотека або фреймворк для створення користувацького інтерфейсу (UI).
 
 ## Reducer
 
-Чиста функція (залежить виключно від state та action, які він отримав) оновлює глобальний state у відповідь на action або повертає старий state, якщо action не підійшов
+Reducer — це чиста функція, яка залежить виключно від стану (state) та дії (action), які вона отримує. Вона оновлює глобальний стан у відповідь на дію або повертає попередній стан, якщо дія не підходить.
 
 ## Проста реалізація Redux
+
+Для початку, розглянемо просту реалізацію Redux.
 
 ```js
 const createStore = (reducer, initialState) => {
@@ -36,15 +40,6 @@ const combineReducers = (reducersMap) => (state, action) => {
     }
 
     return nextState;
-};
-
-const applyMiddleware = (middleware) => (createStore) => (reducer, state) => {
-    const store = createStore(reducer, state);
-
-    return {
-        dispatch: (action) => middleware(store)(store.dispatch)(action),
-        getState: store.getState,
-    };
 };
 
 const todoReducer = (state, action) => {
@@ -75,14 +70,25 @@ const counterReducer = (state, action) => {
     return state;
 };
 
+const applyMiddleware = (middleware) => (createStore) => (reducer, state) => {
+    const store = createStore(reducer, state);
+
+    return {
+        dispatch: (action) => middleware(store)(store.dispatch)(action),
+        getState: store.getState,
+    };
+};
+
 const rootReducer = combineReducers({
     todoState: todoReducer,
     counterState: counterReducer,
 });
 ```
 
-## Література
+У цьому прикладі ми маємо функцію `createStore`, яка створює об'єкт store з методами `dispatch` та `getState`. Метод `dispatch` приймає дію (action) і викликає редуктор (reducer), оновлюючи стан згідно з дією. Метод `getState` повертає поточний стан.
 
-<a href="https://habr.com/ru/post/439104/">Redux. Простий як граблі</a>
+Функція `combineReducers` дозволяє об'єднати кілька редукторів в один кореневий редуктор. Кожен редуктор відповідає за свою частину стану, і кореневий редуктор об'єднує їх у загальний стан.
 
-<a href="https://www.valentinog.com/blog/redux/#modern-redux-with-redux-toolkit-createslice">React Redux Tutorial for Beginners</a>
+Далі ми визначаємо два простих редуктора: `todoReducer` та `counterReducer`. `todoReducer` оновлює стан для списку справ (todos), додаючи або змінюючи елементи. `counterReducer` оновлює стан лічильника (counter), додаючи одиницю.
+
+За допомогою `combineReducers` ми об'єднуємо ці два редуктора в один кореневий редуктор `rootReducer`, який відповідає за загальний стан додатку.

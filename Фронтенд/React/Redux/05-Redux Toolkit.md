@@ -1,11 +1,14 @@
 # Redux Toolkit
 
+Redux Toolkit — це офіційний набір утиліт для розробки з Redux, який надає спрощені API та підходи до створення і керування станом Redux. Він дозволяє писати більш чистий і компактний код, зменшуючи кількість бойлерплейту і спрощуючи процес розробки.
+
 ## Store
 
+Redux Toolkit надає функцію `configureStore`, яка замінює `createStore` з Redux. Вона автоматично налаштовує багато речей, таких як middleware та Redux DevTools. Використання `configureStore` дозволяє швидко створювати магазин Redux з мінімальними зусиллями.
+
+**Redux**
+
 ```js
-/**
- * Old.
- */
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 const storeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -21,10 +24,11 @@ const store = createStore(
     rootReducer,
     storeEnhancers(applyMiddleware(...middleware))
 );
+```
 
-/**
- * New.
- */
+**Redux Toolkit**
+
+```js
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 
 const middleware = [
@@ -42,10 +46,11 @@ const store = configureStore({
 
 ## Action
 
+Redux Toolkit надає функцію `createAction`, яка допомагає створювати об'єкти дій з меншим шаблонним кодом. Ви можете використовувати `createAction` замість власноручного створення об'єктів дій.
+
+**Redux**
+
 ```js
-/**
- * Old.
- */
 const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 const FETCH_LINKS_REQUEST = "FETCH_LINKS_REQUEST";
 const FETCH_LINKS_SUCCESS = "FETCH_LINKS_SUCCESS";
@@ -55,10 +60,11 @@ const loginSuccess = (payload) => ({ type: LOGIN_SUCCESS, payload });
 const fetchLinksRequest = () => ({ type: FETCH_LINKS_REQUEST });
 
 const fetchLinksSuccess = (payload) => ({ type: FETCH_LINKS_SUCCESS, payload });
+```
 
-/**
- * New.
- */
+**Redux Toolkit**
+
+```js
 const loginSuccess = createAction("LOGIN_SUCCESS");
 const fetchLinksRequest = createAction("FETCH_LINKS_REQUEST");
 const fetchLinksSuccess = createAction("FETCH_LINKS_SUCCESS");
@@ -69,10 +75,11 @@ const fetchLinksSuccess2 = createAction("FETCH_LINKS_SUCCESS", (value) => ({
 
 ## Reducer
 
+Redux Toolkit надає функцію `createReducer`, яка спрощує створення редукторів. Замість використання `switch-case` ви можете використовувати `createReducer` для визначення обробників дій за допомогою об'єкта з функціями.
+
+**Redux**
+
 ```js
-/**
- * Old.
- */
 const authState = {
     token: "",
     error: "",
@@ -88,10 +95,11 @@ const authReducer = (state = authState, action) => {
             return state;
     }
 };
+```
 
-/**
- * New.
- */
+**Redux Toolkit**
+
+```js
 const authState = {
     token: "",
     error: "",
@@ -119,10 +127,11 @@ const authReducer = createReducer(authState, (builder) => {
 
 ## Slice
 
+Redux Toolkit надає функцію `createSlice`, яка об'єднує в собі визначення редуктора та дій для одного «сегмента» стану. Замість визначення окремих дій та редукторів, ви можете використовувати `createSlice`, щоб автоматично згенерувати дії та редуктори для вас.
+
+**Redux Toolkit (Reducer)**
+
 ```js
-/**
- * Reducer.
- */
 const loginSuccess = createAction("LOGIN_SUCCESS");
 const loginFailed = createAction("LOGIN_FAILED");
 
@@ -134,10 +143,11 @@ const authReducer = createReducer(authState, {
         state.error = action.payload;
     },
 });
+```
 
-/**
- * Slice.
- */
+**Redux Toolkit (Slice)**
+
+```js
 const authSlice = createSlice({
     name: "auth",
     initialState: authState,
@@ -157,10 +167,11 @@ const authReducer = authSlice.reducer;
 
 ## Redux Thunk
 
+Redux Toolkit інтегрується з Redux Thunk, що дозволяє використовувати асинхронні дії в Redux за допомогою функцій-диспетчерів (thunks). Ви можете використовувати `createAsyncThunk` для створення асинхронних дій, які автоматично обробляють стани завантаження, помилок та успіху.
+
+**Redux**
+
 ```js
-/**
- * Old.
- */
 const getUsers = () => (dispatch) => {
     dispatch({ type: "FETCH_USERS_REQUEST" });
 
@@ -182,10 +193,11 @@ const getUsers = () => (dispatch) => {
             })
         );
 };
+```
 
-/**
- * New.
- */
+**Redux Toolkit**
+
+```js
 const getUsers = createAsyncThunk("users/getUsers", (id) => {
     return fetch(`/api/users/${id}`)
         .then((response) => {

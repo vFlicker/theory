@@ -1,6 +1,6 @@
 # WebSocket
 
-## Data access layer
+## API
 
 ```ts
 type EventsNamesType = "messages-received" | "status-changed";
@@ -105,33 +105,41 @@ export const chatAPI = {
 };
 ```
 
-## Business logic
+## Redux
 
 ```ts
-import { Action, Dispatch } from "redux";
-import { stopSubmit } from "redux-form";
-import { FormAction } from "redux-form/lib/actions";
-import { v1 } from "uuid";
-
 import { ResultCodeForCapcthaEnum, ResultCodesEnum } from "../api/api";
 import { authAPI } from "../api/auth-api";
 import { chatAPI, ChatMessageAPI, StatusType } from "../api/chat-api";
 import { securityAPI } from "../api/security-api";
 import { BaseThunkType, InferActionsTypes } from "./redux-store";
 
+// Types
 type ChatMessageType = ChatMessageAPI & { id: string };
 
-type ActionsType = InferActionsTypes<typeof actions>;
+type MessagesReceivedActionType = {
+    type: "SN/chat/MESSAGES_RECEIVED";
+    payload: { messages: ChatMessageAPI[] };
+};
+
+type StatusChangedActionType = {
+    type: "SN/chat/STATUS_CHANGED";
+    payload: { status: StatusType };
+};
+
+type ActionsType = MessagesReceivedActionType | StatusChangedActionType;
 
 type ThunkType = BaseThunkType<ActionsType | FormAction>;
 
 export type InitialStateType = typeof initialState;
 
+// Initial state
 const initialState = {
     messages: [] as ChatMessageType[],
     status: "pending" as StatusType,
 };
 
+// Reducer
 const chatReducer = (
     state = initialState,
     action: ActionsType
@@ -164,7 +172,7 @@ let _statusChangedHandler: ((status: StatusType) => void) | null = null;
 const newMessageHandlerCreator = (dispatch: Dispatch) => {
     if (_newMessageHandler === null) {
         _newMessageHandler = (messages) => {
-            dispatch(actions.messagesReceived(messages));
+            dispatch(messagesReceived(messages));
         };
     }
 
@@ -174,26 +182,27 @@ const newMessageHandlerCreator = (dispatch: Dispatch) => {
 const statusChangedHandlerCreator = (dispatch: Dispatch) => {
     if (_statusChangedHandler === null) {
         _statusChangedHandler = (status) => {
-            dispatch(actions.statusChanged(status));
+            dispatch(statusChanged(status));
         };
     }
 
     return _statusChangedHandler;
 };
 
-export const actions = {
-    messagesReceived: (messages: ChatMessageAPI[]) =>
-        ({
-            type: "SN/chat/MESSAGES_RECEIVED",
-            payload: { messages },
-        } as const),
-    statusChanged: (status: StatusType) =>
-        ({
-            type: "SN/chat/STATUS_CHANGED",
-            payload: { status },
-        } as const),
-};
+// Action creators
+const messagesReceived = (
+    messages: ChatMessageAPI[]
+): MessagesReceivedActionType => ({
+    type: "SN/chat/MESSAGES_RECEIVED",
+    payload: { messages },
+});
 
+const statusChanged = (status: StatusType): StatusChangedActionType => ({
+    type: "SN/chat/STATUS_CHANGED",
+    payload: { status },
+});
+
+// Thunks
 export const startMessagesListening = (): ThunkType => async (dispatch) => {
     chatAPI.start();
     chatAPI.subscribe("messages-received", newMessageHandlerCreator(dispatch));
@@ -221,12 +230,9 @@ export const sendMessage =
 export default chatReducer;
 ```
 
-## UI
+## Components
 
 ```tsx
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
 import { ChatMessageAPIType } from "../../api/chat-api";
 import {
     sendMessage,
@@ -307,6 +313,20 @@ function Messages(): JSX.Element {
     );
 }
 
+const Message: React.FC<{ message: ChatMessageAPI }> = React.memo(
+    ({ message }) => {
+        return (
+            <div>
+                <img src={message.photo} style={{ width: "30px" }} />{" "}
+                <b>{message.userName}</b>
+                <br />
+                {message.message}
+                <hr />
+            </div>
+        );
+    }
+);
+
 const Message: React.FC<{ message: ChatMessageAPIType }> = React.memo(
     ({ message }) => {
         return (
@@ -328,6 +348,10 @@ function AddMessageForm(): JSX.Element {
 
     const status = useSelector((state: AppStateType) => state.chat.status);
 
+    const handleInputChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setMessage(evt.target.value);
+    };
+
     const handleSendMessage = () => {
         if (!message) return;
 
@@ -339,7 +363,7 @@ function AddMessageForm(): JSX.Element {
         <div>
             <div>
                 <textarea
-                    onChange={(evt) => setMessage(evt.currentTarget.value)}
+                    onChange={handleInputChange}
                     value={message}
                 ></textarea>
             </div>

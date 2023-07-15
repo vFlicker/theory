@@ -1,29 +1,13 @@
 # Реалізація capture
 
-```jsx
-/**
- * CAPTURE
- *
- * 1. Робимо dispatch login-thunk.
- *
- * 2. Відбувається запит API, який при успішному запиті
- * поверне код 0 або 10.
- *
- * 3. Якщо статус код буде 10 — треба ввести capture.
- *
- * 4. Робимо dispatch getCaptchaUrl-thunk, яка додасть
- * у стан url картинки з capture.
- *
- * 5. У UI вводимо код з картинки.
- *
- * Виконуємо крок 1, якщо все добре статус код буде 0.
- *
- * 6. Робимо dispatch getAuthUserData-thunk, яка зробить
- * запит на API, щоб отримати дані о користувачі, якщо все ок,
- * робимо dispatch setAuthUserData(id, email, login, true)
- *
- */
+1. Робимо dispatch login-thunk.
+2. Відбувається запит API, який при успішному запиті поверне код 0 або 10.
+3. Якщо статус код буде 10 — треба ввести capture.
+4. Робимо dispatch getCaptchaUrl-thunk, яка додасть у стан url картинки з capture.
+5. У UI вводимо код з картинки. Виконуємо крок 1, якщо все добре статус код буде 0.
+6. Робимо dispatch getAuthUserData-thunk, яка зробить запит на API, щоб отримати дані о користувачі, якщо все ок, робимо dispatch setAuthUserData(id, email, login, true)
 
+```jsx
 /**
  * API.
  */
@@ -54,7 +38,7 @@ const authReducer = (state = initialState, action) => {
         case GET_CAPTCHA_URL_SUCCESS:
             return {
                 ...state,
-                ...action.payload,
+                captchaUrl: action.captchaUrl,
             };
         default:
             return state;
@@ -66,15 +50,15 @@ export const getCaptchaUrlSuccess = (captchaUrl) => ({
     payload: { captchaUrl },
 });
 
-/** getCaptchaUrl-thunk */
-export const getCaptchaUrl = () => async (dispatch) => {
+/** thunk fetchCaptchaUrl */
+export const fetchCaptchaUrl = () => async (dispatch) => {
     const response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.data.url;
 
     dispatch(getCaptchaUrlSuccess(captchaUrl));
 };
 
-/** getAuthUserData-thunk */
+/** thunk getAuthUserData */
 export const getAuthUserData = () => async (dispatch) => {
     const meData = await authAPI.me();
 
@@ -85,7 +69,7 @@ export const getAuthUserData = () => async (dispatch) => {
 };
 
 /**
- * login-thunk
+ * thunk login
  */
 export const login = (data) => async (dispatch) => {
     const response = await authAPI.login(...data);
@@ -96,7 +80,7 @@ export const login = (data) => async (dispatch) => {
     }
 
     if (response.data.resultCode === 10) {
-        dispatch(getCaptchaUrl());
+        dispatch(fetchCaptchaUrl());
         return;
     }
 
@@ -111,7 +95,7 @@ export const login = (data) => async (dispatch) => {
  * JSX.
  */
 function Login({ login }) {
-    const captchaUrl = useSelector();
+    const captchaUrl = useSelector((state) => state.auth.captchaUrl);
     const dispatch = useDispatch();
 
     const handleSubmit = () => {
