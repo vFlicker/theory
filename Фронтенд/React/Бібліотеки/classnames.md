@@ -1,15 +1,29 @@
-## classnames
+# classnames
+
+Бібліотека classnames — це допоміжний інструмент для зручної роботи з класами в React компонентах.
+
+## Використання
+
+Для використання `classnames` потрібно встановити його за допомогою пакетного менеджера (наприклад, npm або yarn) і імпортувати його у вашому проекті.
 
 ```jsx
 import cn from "classnames";
+```
 
+Функція cn дозволяє об'єднувати класи разом, в залежності від переданих аргументів.
+
+```jsx
 cn("menu", "active"); // 'menu active'
+```
 
+У цьому прикладі, функція cn об'єднує два класи — `'menu'` і `'active'`, повертаючи рядок `'menu active'`.
+
+Можна також використовувати об'єкт для визначення класів з умовами:
+
+```jsx
 let isActive = true;
 cn("menu", { active: isActive }); // 'menu active'
 cn("menu", isActive && "active"); // 'menu active'
-
-isActive = false;
-cn("menu", { active: isActive }); // 'menu'
-cn("menu", isActive && "active"); // 'menu'
 ```
+
+В цьому прикладі, якщо `isActive` має значення `true`, то клас `'active'` додається до рядка `'menu'`. Якщо `isActive` має значення `false`, клас `'active'` не буде доданий.
