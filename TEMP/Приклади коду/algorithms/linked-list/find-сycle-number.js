@@ -6,8 +6,6 @@ const findCycleNumber = (numbers) => {
     tortoise = numbers[tortoise]; // Черепаха рухається на одну позицію
     hare = numbers[numbers[hare]]; // Заяць рухається на дві позиції
 
-    console.log({ tortoise, hare });
-
     if (tortoise === hare) {
       // Заяць доганяє Черепаху, знайдено цикл
       break;
