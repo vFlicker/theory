@@ -90,25 +90,26 @@ const iterate = async (num) => {
 ```js
 /**
  * Функція створення черги для асинхронних функцій.
- *
  * Корисна, коли перед наступним запитом потрібно дочекатися виконання попереднього.
  */
 const createQueue = (asyncFunction) => {
     // Створюємо чергу, зберігатимемо у ній аргументи для функції
     const queue = [];
 
-    const dequeue = () => {
+    const dequeue = async () => {
         // Беремо аргументи з початку масиву та викликаємо функцію
         const args = queue[0];
 
-        asyncFunction(...args).then(() => {
-            // Як тільки проміс нашої функції виконається,
-            // видаляємо виконання цього завдання з черги
-            queue.shift();
+        await asyncFunction(...args);
 
-            // А якщо в черзі щось залишилося — виконуємо
-            if (queue.length) dequeue();
-        });
+        // Як тільки проміс нашої функції виконається,
+        // видаляємо виконання цього завдання з черги
+        queue.shift();
+
+        // А якщо в черзі щось залишилося — виконуємо
+        if (queue.length) {
+            dequeue();
+        }
     };
 
     // Викликаємо функцію, обернуту в чергу, як завжди
@@ -117,9 +118,27 @@ const createQueue = (asyncFunction) => {
         queue.push(args);
 
         // Якщо в черзі є тільки наше завдання — беремо і виконуємо її
-        if (queue.length === 1) dequeue();
+        if (queue.length === 1) {
+            dequeue();
+        }
     };
 };
+
+const fetchData = async (data) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            console.log(`Fetched: ${data}`);
+            resolve();
+        }, 1000);
+    });
+};
+
+const queuedFetch = createQueue(fetchData);
+
+// Додаємо запити до черги
+queuedFetch("Request 1");
+queuedFetch("Request 2");
+queuedFetch("Request 3");
 ```
 
 ## Література
