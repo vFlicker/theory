@@ -5,12 +5,12 @@ const getCachedFibonacci = () => {
     if (number === 1) return 0;
     if (number === 2) return 1;
 
-    const cachedValue = map.get(number);
-    if (cachedValue) return cachedValue;
+    if (!map.has(number)) {
+      const result = fibonacci(number - 1) + fibonacci(number - 2);
+      map.set(number, result);
+    }
 
-    const result = fibonacci(number - 1) + fibonacci(number - 2);
-    map.set(number, result);
-    return result;
+    return map.get(number);
   };
 
   return fibonacci;
