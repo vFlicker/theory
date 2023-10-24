@@ -22,7 +22,7 @@ Middleware в Redux - це шар, що знаходиться між відпр
 
 ## Базова форма middleware
 
-Redux middleware це функція, яка приймає об'єкт з методами `getState` і `dispatch` та повертає функцію, яка приймає next як параметр. Потім внутрішня функція повертає іншу функцію, яка приймає дію як параметр і, нарешті, повертає next(action)
+Redux middleware це функція, яка приймає об'єкт з методами `getState` і `dispatch` та повертає функцію, яка приймає `next` як параметр. Потім внутрішня функція повертає іншу функцію, яка приймає `action` як параметр і, нарешті, повертає `next(action)`
 
 ```js
 /**
@@ -41,6 +41,7 @@ function myMiddleware({ getState, dispatch }) {
 
             // Читання наступного стан.
             const state = getState();
+            console.log(state);
 
             // Виклик next(action) пересуває виконання програми далі,
             // передаючи дію наступному middleware в ланцюжку.
@@ -55,36 +56,31 @@ function myMiddleware({ getState, dispatch }) {
 ```js
 const forbiddenWords = ["spam", "money"];
 
-const forbiddenWordsMiddleware =
-    ({ dispatch }) =>
-    (next) =>
-    (action) => {
-        if (action.type === ADD_ARTICLE) {
-            const foundWord = forbiddenWords.filter((word) =>
-                action.payload.includes(word)
-            );
+const forbiddenWordsMiddleware = ({ dispatch }) => (next) => (action) => {
+    if (action.type === ADD_ARTICLE) {
+        const foundWord = forbiddenWords.filter((word) =>
+            action.payload.includes(word)
+        );
 
-            if (foundWord.length) {
-                /**
-                 * Ланцюжок виконання middleware буде перерваний,
-                 * і виконання почнеться з початку з новою дією.
-                 *
-                 * Якщо ми пропустимо return:
-                 *
-                 * 1. Middleware почнуть виконання з початку
-                 * з дією "TITLE_FORBIDDEN", яка в кінцевому
-                 * рахунку потрапить до редуктора.
-                 *
-                 * 2. Після виконання редуктора з дією
-                 * "TITLE_FORBIDDEN", виконання продовжиться
-                 * поточною функцією (виконання рядка return next(action))
-                 */
-                return dispatch(titleForbidden());
-            }
+        if (foundWord.length) {
+            /**
+             * Ланцюжок виконання middleware буде перерваний,
+             * і виконання почнеться з початку з новою дією.
+             *
+             * Якщо ми пропустимо return:
+             *  1. Middleware почнуть виконання з початку
+             *      з дією "TITLE_FORBIDDEN", яка в кінцевому
+             *      рахунку потрапить до редуктора.
+             *  2. Після виконання редуктора з дією
+             *      "TITLE_FORBIDDEN", виконання продовжиться
+             *      поточною функцією (виконання рядка return next(action))
+             */
+            return dispatch(titleForbidden());
         }
+    }
 
-        return next(action);
-    };
+    return next(action);
+};
 ```
 
 У цьому прикладі middleware `forbiddenWordsMiddleware` перевіряє, чи містить додана стаття заборонені слова. Якщо заборонені слова знайдені, то викликається дія `titleForbidden()`, яка змусить ланцюжок middleware розпочати виконання з початку з новою дією.

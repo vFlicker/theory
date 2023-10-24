@@ -4,7 +4,7 @@ Redux Toolkit — це офіційний набір утиліт для роз�
 
 ## Store
 
-Redux Toolkit надає функцію `configureStore`, яка замінює `createStore` з Redux. Вона автоматично налаштовує багато речей, таких як middleware та Redux DevTools. Використання `configureStore` дозволяє швидко створювати магазин Redux з мінімальними зусиллями.
+Redux Toolkit надає функцію `configureStore`, яка замінює `createStore` з Redux. Вона автоматично налаштовує багато речей, таких як middleware та Redux DevTools. Використання `configureStore` дозволяє швидко створювати сховище Redux з мінімальними зусиллями.
 
 **Redux**
 
@@ -193,18 +193,38 @@ const getUsers = () => (dispatch) => {
             })
         );
 };
+
+const getUsers = () => async (dispatch) => {
+    dispatch({ type: "FETCH_USERS_REQUEST" });
+
+    try {
+        const response = await fetch("/api/users/");
+        if (!response.ok) throw Error(response.statusText);
+
+        const json = await response.json();
+
+        dispatch({
+            type: "FETCH_USERS_SUCCESS",
+            payload: json,
+        });
+    } catch (error) {
+        dispatch({
+            type: "FETCH_USERS_FAILURE",
+            payload: error.message,
+        });
+    }
+};
 ```
 
 **Redux Toolkit**
 
 ```js
-const getUsers = createAsyncThunk("users/getUsers", (id) => {
-    return fetch(`/api/users/${id}`)
-        .then((response) => {
-            if (!response.ok) throw Error(response.statusText);
-            return response.json();
-        })
-        .then((json) => json);
+const getUsers = createAsyncThunk("users/getUsers", async (id) => {
+    const response = await fetch(`/api/users/${id}`);
+    if (!response.ok) throw Error(response.statusText);
+
+    const json = await response.json();
+    return json;
 });
 
 const usersSlice = createSlice({

@@ -2,10 +2,13 @@
 
 1. Робимо dispatch login-thunk.
 2. Відбувається запит API, який при успішному запиті поверне код 0 або 10.
-3. Якщо статус код буде 10 — треба ввести capture.
-4. Робимо dispatch getCaptchaUrl-thunk, яка додасть у стан url картинки з capture.
-5. У UI вводимо код з картинки. Виконуємо крок 1, якщо все добре статус код буде 0.
-6. Робимо dispatch getAuthUserData-thunk, яка зробить запит на API, щоб отримати дані о користувачі, якщо все ок, робимо dispatch setAuthUserData(id, email, login, true)
+    - Якщо статус код буде 10
+        1. Треба ввести capture.
+        2. Робимо dispatch getCaptchaUrlSuccess, яка додасть у стан url картинки з capture.
+        3. У UI вводимо код з картинки.
+        4. Виконуємо крок 1, якщо все добре статус код буде 0.
+    - Якщо статус код буде 0
+        1. Робимо dispatch getAuthUserData-thunk, яка зробить запит на API, щоб отримати дані о користувачі, якщо все ок, робимо dispatch setAuthUserData(id, email, login, true)
 
 ```jsx
 /**
@@ -76,19 +79,15 @@ export const login = (data) => async (dispatch) => {
 
     if (response.data.resultCode === 0) {
         dispatch(getAuthUserData());
-        return;
-    }
-
-    if (response.data.resultCode === 10) {
+    } else if (response.data.resultCode === 10) {
         dispatch(fetchCaptchaUrl());
-        return;
+    } else {
+        const message = response.data.messages.length
+            ? response.data.messages[0]
+            : "Some error";
+
+        dispatch(stopSubmit("login", { _error: message }));
     }
-
-    const message = response.data.messages.length
-        ? response.data.messages[0]
-        : "Some error";
-
-    dispatch(stopSubmit("login", { _error: message }));
 };
 
 /**

@@ -8,11 +8,11 @@
 
 ## Індикатор завантаження
 
-Для відображення індикатора завантаження можна додати поле `loading` до Redux state. Це поле оновлюється в reducer, коли дані стають доступними. Значення `loading` передається в компонент, і на його основі рендериться індикатор завантаження або вміст компонента з даними.
+Для відображення індикатора завантаження можна додати поле `loading` до стану Redux. Це поле оновлюється в reducer, коли дані стають доступними. Значення `loading` передається в компонент, і на його основі рендериться індикатор завантаження або вміст компонента з даними.
 
 ## Обробка помилок
 
-Помилки, які виникають при отриманні даних, також можна зберігати в Redux state, щоб компоненти могли їх відобразити або виконати відповідні дії.
+Помилки, які виникають при отриманні даних, також можна зберігати в стані Redux, щоб компоненти могли їх відобразити або виконати відповідні дії.
 
 ## Асинхронність
 
@@ -20,7 +20,7 @@
 
 ## Redux Thunk
 
-Redux Thunk — це middleware для Redux, яке дозволяє використовувати функції замість об'єктів дій. Це дає можливість робити асинхронні запити, отримувати дані з сервера та диспетчеризувати дії на основі цих даних.
+Redux Thunk — це middleware для Redux, яке дозволяє використовувати функції замість об'єктів дій. Це дає можливість робити асинхронні запити, отримувати дані з сервера та диспатчити дії на основі цих даних.
 
 ### Створення Thunk
 
@@ -34,15 +34,10 @@ Redux Thunk — це middleware для Redux, яке дозволяє викор
  * забороняє використовувати універсальний об'єкт.
  * Тому ми вказали unknown, маючи на увазі, що тип
  * буде уточнено пізніше.
- */ d;
-export interface Middleware<
-    DispatchExt = {},
-    S = any,
-    D extends Dispatch = Dispatch
-> {
-    (api: MiddlewareAPI<D, S>): (
-        next: Dispatch<AnyAction>
-    ) => (action: any) => any;
+ */
+
+export interface Middleware<DispatchExt = {}, S = any, D extends Dispatch = Dispatch> {
+    (api: MiddlewareAPI<D, S>): (next: Dispatch<AnyAction>) => (action: any) => any;
 }
 ```
 
@@ -59,17 +54,16 @@ const createThunkMiddleware = (extraArgument) => {
         };
 };
 
-const getData = () => (dispatch, _getState, _extraArgument) => {
-    return fetch("https://jsonplaceholder.typicode.com/posts")
-        .then((response) => response.json())
-        .then((json) => {
-            /**
-             * Навіть middleware зрештою відправлятиме дії
-             * з простими об'єктами за допомогою цього
-             * методу.
-             */
-            dispatch({ type: "DATA_LOADED", payload: json });
-        });
+const getData = async () => (dispatch, _getState, _extraArgument) => {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const json = await response.json();
+
+    /**
+     * Навіть middleware зрештою відправлятиме дії
+     * з простими об'єктами за допомогою цього
+     * методу.
+     */
+    dispatch({ type: "DATA_LOADED", payload: json });
 };
 ```
 
