@@ -160,3 +160,69 @@ console.log(parseMolecule("Mg(OH)2")); // { Mg: 1, O: 2, H: 2 }
 console.log(parseMolecule("K4[ON(SO3)2]2")); // { K: 4, O: 14, N: 2, S: 4 }
 console.log(parseMolecule("C6H12O6")); // { C: 6, H12, O: 6}
 console.log(parseMolecule("As2{Be4C5[BCo3(CO2)3]2}4Cu5")); // { As: 2, Be: 16, C: 44, B: 8, Co: 24, O: 48, Cu: 5 }
+
+// obj_merge = (a, b)->
+//   for k,v of b
+//     if a[k]
+//       a[k] += v
+//     else
+//       a[k] = v
+//   return
+
+// _parse_element = (str, ret)->
+//   return null if !reg_ret = /^[A-Z][a-z]?/.exec str
+//   el = reg_ret[0]
+//   loc_ret = {}
+//   loc_ret[el] = 1
+//   str = str.substr el.length
+//   if (new_str = _parse_mult str, loc_ret)?
+//     str = new_str
+//   obj_merge ret, loc_ret
+//   str
+
+// _parse_mult = (str, ret)->
+//   return null if !reg_ret = /^\d+/.exec str
+//   mult = +parsed = reg_ret[0]
+//   for k of ret
+//     ret[k] *= mult
+//   str.substr parsed.length
+
+// _parse_bra = (str, ret)->
+//   if str.startsWith "["
+//     return null if !reg_ret = /^\[(.+?)\]/.exec str
+//   else if str.startsWith "("
+//     return null if !reg_ret = /^\((.+?)\)/.exec str
+//   else if str.startsWith "{"
+//     return null if !reg_ret = /^\{(.+?)\}/.exec str
+//   else
+//     return null
+//   [parsed, sub_str] = reg_ret
+//   str = str.substr parsed.length
+  
+//   loc_ret = {}
+//   rest = _parse sub_str, loc_ret
+//   # return null if !rest
+//   return null if rest != ""
+  
+//   if (new_str = _parse_mult str, loc_ret)?
+//     str = new_str
+//   obj_merge ret, loc_ret
+  
+//   str
+  
+// _parse = (str, ret)->
+//   while str
+//     if (new_str = _parse_element str, ret)?
+//       str = new_str
+//     else if (new_str = _parse_bra str, ret)?
+//       str = new_str
+//     else
+//       break
+//   str
+
+// parseMolecule = (formula) ->
+//   ret = {}
+//   rest = _parse formula, ret
+//   # return {} if !rest
+//   return {} if rest != ""
+//   ret
