@@ -11,10 +11,14 @@
 
 ## Python
 
-### Основи Python
+- pipenv (http://ruslan.rv.ua/python-essential/libs_3rd_party/venv.html)
 
-1. Многопроцесорность, многопоточність, (пітоновський гіл) асинхронність (asyncio, async-await, ка-рутіни)
-1. Джіл,асиннхронність і мультіпррцесорність
+### Advanced Python
+
+-   асинхронне програмування (asyncio, async-await, корутини)
+-   багатопоточність
+-   Джіл і багатопроцесорність
+-   пітоновський гіл
 
 ### Django
 
