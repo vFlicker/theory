@@ -11,9 +11,13 @@
 
 ## Python
 
+https://habr.com/ru/articles/482936/
+https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
+
+
 ### Django
 
--   pipenv (http://ruslan.rv.ua/python-essential/libs_3rd_party/venv.html)
+pipenv (http://ruslan.rv.ua/python-essential/libs_3rd_party/venv.html)
 
 1. Життєвий цикл застосунку
 1. Різниці між наслідуванням моделей (наслідування від звичайної моделі і абстрактної)
@@ -36,6 +40,7 @@
 1. select related, perfetch related
 1. Як і коли писати в Django SQL?
 1. Select_related та Prefetch_related
+Ну, например, select_related на самом деле делает JOIN. А prefetch_related не делает. Не всегда синтаксис django ORM выдерживает реальности SQL, и появляются всякие странные вещи типа OuterRef, F, Q, и иже с ними. GROUP BY вообще замаскирован.
 
 ### DRF
 
