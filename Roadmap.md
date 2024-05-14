@@ -14,13 +14,9 @@
 https://habr.com/ru/articles/482936/
 https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
 
-
 ### Django
 
-pipenv (http://ruslan.rv.ua/python-essential/libs_3rd_party/venv.html)
-
 1. Життєвий цикл застосунку
-1. Різниці між наслідуванням моделей (наслідування від звичайної моделі і абстрактної)
 1. Які є шари? (Моделі, вью, серіалізатори, сервіси, менеджери)
 1. Де писати БЛ?
 1. Як реалізовувати сервіси в Django?
