@@ -11,21 +11,15 @@
 
 ## Python
 
-https://habr.com/ru/articles/482936/
 https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
 
 ### Django
 
-1. Які є шари? (Моделі, вью, серіалізатори, сервіси, менеджери)
-1. Де писати БЛ?
-1. Як реалізовувати сервіси в Django?
-1. Де краще розмістити логіку в моделі або серіалізаторі?
-1. Де писати логіку в моделях або менеджерах?
-1. Різниця дженерік класів від вьюсет класів, коли і що треба використовувати?
-
 ### Django ORM
 
-1. Чи підтримує джанго кілька бд?
+ВИЖЛИВО https://jairvercosa.medium.com/manger-vs-query-sets-in-django-e9af7ed744e0
+https://fly.io/django-beats/organizing-database-queries-managers-vs-querysets/
+
 1. Що таке міграції?
 1. SQLAlchemy
 1. Що робити якщо БД вже є, а моделі ми написали потім, як бути з цими міграціями?
@@ -34,13 +28,15 @@ https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
 1. select related, perfetch related
 1. Як і коли писати в Django SQL?
 1. Select_related та Prefetch_related
-Ну, например, select_related на самом деле делает JOIN. А prefetch_related не делает. Не всегда синтаксис django ORM выдерживает реальности SQL, и появляются всякие странные вещи типа OuterRef, F, Q, и иже с ними. GROUP BY вообще замаскирован.
+   Ну, например, select_related на самом деле делает JOIN. А prefetch_related не делает. Не всегда синтаксис django ORM выдерживает реальности SQL, и появляются всякие странные вещи типа OuterRef, F, Q, и иже с ними. GROUP BY вообще замаскирован.
 
 ### DRF
 
 1. DRF що таке?
 1. Django і DRF яка різниця?
+   https://habr.com/ru/articles/306538/
 1. Що таке пермішенс в DRF?
+1. Різниця дженерік класів від вьюсет класів, коли і що треба використовувати?
 1. Вбудовані в DRF сераілазатори (стлахфілд серіалізатор)
 
 ### Загальні питання
@@ -56,6 +52,7 @@ https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
 
 ### Advanced Python
 
+-   https://habr.com/ru/articles/482936/
 -   асинхронне програмування (asyncio, async-await, корутини)
 -   багатопоточність
 -   Джіл і багатопроцесорність
