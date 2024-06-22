@@ -13,20 +13,16 @@
 
 https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
 
+Є один патерн програмування, де множинна спадковість використовується. Це так звані "міксіни" (mixins, домішки). Клас-міксін проектується так, щоб при створенні похідного класа він додавав би якісь нові властивості. Як правило екземпляри від міксінів не інстанціюють.
+
 ### Django
 
 ### Django ORM
 
-ВИЖЛИВО https://jairvercosa.medium.com/manger-vs-query-sets-in-django-e9af7ed744e0
 https://fly.io/django-beats/organizing-database-queries-managers-vs-querysets/
 
-1. Що таке міграції?
-1. SQLAlchemy
-1. Що робити якщо БД вже є, а моделі ми написали потім, як бути з цими міграціями?
-1. Якщо в БД вже є дані, а міграцій ще не було, що робити?
-1. Саб-квері, як оптимізувати запроси до БД?
-1. select related, perfetch related
 1. Як і коли писати в Django SQL?
+1. Саб-квері, як оптимізувати запроси до БД?
 1. Select_related та Prefetch_related
    Ну, например, select_related на самом деле делает JOIN. А prefetch_related не делает. Не всегда синтаксис django ORM выдерживает реальности SQL, и появляются всякие странные вещи типа OuterRef, F, Q, и иже с ними. GROUP BY вообще замаскирован.
 
@@ -67,9 +63,6 @@ https://fly.io/django-beats/organizing-database-queries-managers-vs-querysets/
 
 ### DevOps
 
-1. CI/CD
-1. Docker
-1. Cubernetis
 1. Системи моніторинга, навантаження на Бд, навантаження на сервер
 
 ### git
@@ -83,6 +76,7 @@ https://fly.io/django-beats/organizing-database-queries-managers-vs-querysets/
 ## DevOps (1)
 
 1. CI/CD https://coursehunter.net/course/master-klass-ci-cd-dlya-js-razrabotchika?lesson=8
+2. Kubernetes
 
 ## Анімація (1)
 
@@ -105,8 +99,11 @@ https://fly.io/django-beats/organizing-database-queries-managers-vs-querysets/
 ## Архітектура (4)
 
 1. Курс по архітектурі
-2. Abstraction and Design in Computation: https://www.youtube.com/watch?v=3jvq_bF3iVM&list=PLxA7uoRZbzXlW0XjbtuWow6PmPHe4vU7p
-3. SOLID: https://solidbook.vercel.app/
+1. Abstraction and Design in Computation: https://www.youtube.com/watch?v=3jvq_bF3iVM&list=PLxA7uoRZbzXlW0XjbtuWow6PmPHe4vU7p
+1. SOLID: https://solidbook.vercel.app/
+1. polylith: https://polylith.gitbook.io/polylith/conclusion/current-arcitectures
+1. polylith: https://medium.com/@joakimtengstrand/understanding-polylith-through-the-lens-of-hexagonal-architecture-8e7c8757dab1
+1. Clean architecture: https://jairvercosa.medium.com/hey-denny-thanks-for-your-response-8bb52b1c6eb7 + https://github.com/jairvercosa/ca_auth/tree/master/auth/usecases
 
 -   Вимоги ACID
 -   CAP-теорема
