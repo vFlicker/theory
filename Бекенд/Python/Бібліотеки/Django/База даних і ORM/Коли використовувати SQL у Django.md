@@ -79,6 +79,44 @@ class Migration(migrations.Migration):
     ]
 ```
 
+### Використання Django Debug Toolbar
+
+Django Debug Toolbar надає зручний спосіб відстежувати всі запити до бази даних, які виконуються під час обробки запиту.
+
+#### Інсталяція
+
+```sh
+pip install django-debug-toolbar
+```
+
+#### Налаштування
+
+```py
+# settings.py
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
+
+MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # інші ваші middleware
+]
+
+INSTALLED_APPS = [
+    # інші ваші додатки
+    'debug_toolbar',
+]
+
+
+# urls.py
+from django.urls import path, include
+
+urlpatterns = [
+    # інші ваші шляхи
+    path('__debug__/', include('debug_toolbar.urls')),
+]
+```
+
 ## Рекомендації
 
 -   Безпека: При використанні «сирого» SQL завжди слідкуйте за безпекою, щоб уникнути SQL-ін'єкцій. Використовуйте параметризовані запити та уникайте вставки неперевірених даних безпосередньо в SQL-код.

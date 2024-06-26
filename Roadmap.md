@@ -17,15 +17,6 @@ https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
 
 ### Django
 
-### Django ORM
-
-https://fly.io/django-beats/organizing-database-queries-managers-vs-querysets/
-
-1. Як і коли писати в Django SQL?
-1. Саб-квері, як оптимізувати запроси до БД?
-1. Select_related та Prefetch_related
-   Ну, например, select_related на самом деле делает JOIN. А prefetch_related не делает. Не всегда синтаксис django ORM выдерживает реальности SQL, и появляются всякие странные вещи типа OuterRef, F, Q, и иже с ними. GROUP BY вообще замаскирован.
-
 ### DRF
 
 1. DRF що таке?
