@@ -9,14 +9,15 @@
 -   Розбиратися у предметній області (ознайомитися з Domain-Driven Design: управління складністю у серці програмного забезпечення).
 -   Глибоко вивчати нові поняття (це допоможе зрозуміти, як вони працюють, їх властивості та вибрати найкращі рішення).
 
-## SSR (0)
+## SSR (1)
 
 1. SSR https://amorgunov.com/posts/2020-12-08-server-side-rendering-in-react/
 
 ## DevOps (1)
 
+1. Спочатку подивитися лекцію CS50 про тести і CI/CD, тма є гарний приклад з github action
 1. CI/CD https://coursehunter.net/course/master-klass-ci-cd-dlya-js-razrabotchika?lesson=8
-2. Kubernetes
+1. Kubernetes
 
 ## Анімація (1)
 
@@ -30,8 +31,12 @@
 1. Відмінність HAVING від WHERE у SQL-запитах
 1. https://cs50.harvard.edu/sql/2023/
 
-
 ## Python (4)
+
+Подивитися код:
+
+-   https://github.com/danjac/realworld/blob/main/realworld/articles/views.py
+-   https://github.com/Jang-Jaewon/pinerest-clone/blob/88343863f8967906b8b650c13f7b4357c635378a/commentapp/views.py
 
 Є один патерн програмування, де множинна спадковість використовується. Це так звані "міксіни" (mixins, домішки). Клас-міксін проектується так, щоб при створенні похідного класа він додавав би якісь нові властивості. Як правило екземпляри від міксінів не інстанціюють.
 
@@ -69,7 +74,6 @@ WEB SOCKET та Django channels
 ### git
 
 1. практика git flow
-
 
 ## Бекенд (4)
 
@@ -118,6 +122,8 @@ WEB SOCKET та Django channels
 
 1. Відмінності між http 2.0 і http 1.1
 2. Сім рівнів моделі OSI, на яких із них відбувається балансування навантаження
+3. Як працює інтернет https://www.youtube.com/watch?v=IgF7VwIKqX8
+4. TSL https://tls12.xargs.org/#server-key-exchange
 
 ## Математика
 
