@@ -33,13 +33,6 @@
 
 ## Python (4)
 
-Подивитися код:
-
--   https://github.com/danjac/realworld/blob/main/realworld/articles/views.py
--   https://github.com/Jang-Jaewon/pinerest-clone/blob/88343863f8967906b8b650c13f7b4357c635378a/commentapp/views.py
-
-Є один патерн програмування, де множинна спадковість використовується. Це так звані "міксіни" (mixins, домішки). Клас-міксін проектується так, щоб при створенні похідного класа він додавав би якісь нові властивості. Як правило екземпляри від міксінів не інстанціюють.
-
 -   https://habr.com/ru/articles/482936/
 -   асинхронне програмування (asyncio, async-await, корутини)
 -   багатопоточність
@@ -82,6 +75,11 @@ WEB SOCKET та Django channels
 3. Serverless
 
 ## Архітектура (4)
+
+1. DAO vs Repository vs Active Record vs Data Mapper
+
+-   https://habr.com/ru/articles/581964/
+-   https://habr.com/ru/articles/263033/
 
 1. Курс по архітектурі
 1. Abstraction and Design in Computation: https://www.youtube.com/watch?v=3jvq_bF3iVM&list=PLxA7uoRZbzXlW0XjbtuWow6PmPHe4vU7p
