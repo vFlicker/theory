@@ -13,3 +13,37 @@ socket.io — є потужним і функціональним фреймво
 
 -   Оверхед: Більш важка у порівнянні з ws, що може призвести до деякого зниження продуктивності.
 -   Залежності: Може мати більше залежностей, що може ускладнити управління проектом.
+
+## Приклад використання
+
+```js
+app.use(express.json());
+
+io.on("connection", (socket) => {
+    console.log("New user connected");
+
+    // Приєднання до кімнати
+    socket.on("join_room", (roomName) => {
+        socket.join(roomName);
+        console.log(`Client joined room: ${roomName}`);
+    });
+
+    // Вихід з кімнати
+    socket.on("disconnect", () => {
+        socket.leave(roomName);
+        console.log("Client disconnected");
+    });
+
+    // Прийом повідомлення від клієнта
+    socket.on("send_message", (data) => {
+        const { roomName, message } = data;
+        // Відправка повідомлення всім у кімнаті
+        io.to(roomName).emit("receive_message", message);
+    });
+
+    // Відключення клієнта
+    socket.on("disconnect", () => {
+        console.log("User disconnected");
+    });
+});
+```

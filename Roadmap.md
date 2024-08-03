@@ -42,7 +42,6 @@
 ### Django
 
 Шаблонізатор https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
-WEB SOCKET та Django channels
 Логування в django
 
 ### DRF
