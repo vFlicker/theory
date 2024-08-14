@@ -33,11 +33,15 @@
 
 ## Python (4)
 
--   https://habr.com/ru/articles/482936/
--   асинхронне програмування (asyncio, async-await, корутини)
--   багатопоточність
--   Джіл і багатопроцесорність
--   пітоновський гіл
+-   https://habr.com/ru/companies/wunderfund/articles/page5/
+
+
+### потоки та процеси. багатопоточність, багатопроцесорність, GIL
+
+https://habr.com/ru/companies/wunderfund/articles/701982/
+
+-   Конкурентность, основанная на потоках, доступна Python-программистам благодаря модулю threading
+-   Конкурентность, основанная на процессах, реализуется на основе механизмов из модуля multiprocessing.
 
 ### Django
 
