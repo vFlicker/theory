@@ -33,20 +33,10 @@
 
 ## Python (4)
 
--   https://habr.com/ru/companies/wunderfund/articles/page5/
-
-
-### потоки та процеси. багатопоточність, багатопроцесорність, GIL
-
-https://habr.com/ru/companies/wunderfund/articles/701982/
-
--   Конкурентность, основанная на потоках, доступна Python-программистам благодаря модулю threading
--   Конкурентность, основанная на процессах, реализуется на основе механизмов из модуля multiprocessing.
-
 ### Django
 
 Шаблонізатор https://jinja.palletsprojects.com/en/3.1.x/templates/#variables
-Логування в django
+Логування в django https://habr.com/ru/companies/wunderfund/articles/683880/
 
 ### DRF
 
@@ -59,7 +49,7 @@ https://habr.com/ru/companies/wunderfund/articles/701982/
 ### БД
 
 1. Еластік сьорч
-1. Коли треба використовувати релеаційни і NoSQL бд, чому переваги NoSQL БД?
+1. Коли треба використовувати релеаційни і NoSQL бд, чому переваги NoSQL БД? https://habr.com/ru/companies/wunderfund/articles/691178/
 1. Selery в Django (селері, брокери, що таке брокери, які таски є в селері)
 1. Коли використовувати Redis, а коли Postgress, що швидше і чому швидше?
 
@@ -73,6 +63,7 @@ https://habr.com/ru/companies/wunderfund/articles/701982/
 
 ## Бекенд (4)
 
+0. Адаптер, фасад, ітератор, обсервер, стратегія, стейт, фабричний метод.
 1. Відмінності між авторизацією та автентифікацією
 2. REST vs SOAP vs JOD
 3. Serverless

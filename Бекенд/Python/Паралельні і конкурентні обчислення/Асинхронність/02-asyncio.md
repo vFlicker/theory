@@ -95,3 +95,58 @@ def blocking_io():
 
 result = await asyncio.to_thread(blocking_io)
 ```
+
+## Семафори та обмеження конкурентності
+
+`asyncio.Semaphore` дозволяє обмежити кількість одночасно виконуваних корутин.
+
+```python
+async def worker(semaphore):
+    async with semaphore:
+        await some_intensive_io()
+
+async def main():
+    semaphore = asyncio.Semaphore(10)  # Обмежуємо до 10 одночасних операцій
+    await asyncio.gather(*[worker(semaphore) for _ in range(1000)])
+```
+
+## asyncio.Queue
+
+`asyncio.Queue` дозволяє безпечно передавати дані між корутинами.
+
+```python
+async def producer(queue):
+    for i in range(5):
+        await queue.put(i)
+        await asyncio.sleep(1)
+
+async def consumer(queue):
+    while True:
+        item = await queue.get()
+        print(f"Отримано: {item}")
+        queue.task_done()
+
+async def main():
+    queue = asyncio.Queue()
+    producer_task = asyncio.create_task(producer(queue))
+    consumer_task = asyncio.create_task(consumer(queue))
+    await producer_task
+    await queue.join()
+    consumer_task.cancel()
+```
+
+## Обробка сигналів
+
+`asyncio` дозволяє асинхронно обробляти системні сигнали.
+
+```python
+import signal
+
+def signal_handler():
+    print("Отримано сигнал завершення")
+
+async def main():
+    loop = asyncio.get_running_loop()
+    loop.add_signal_handler(signal.SIGINT, signal_handler)
+    await asyncio.sleep(10)  # Очікуємо сигнал
+```
